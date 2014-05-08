@@ -1,0 +1,90 @@
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        MainApp.form();
+    });
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Experts", experts_path, title: "Experts" %></li>
+    <li><%= link_to "Mon compte", dashboard_path(current_expert.id), title: "Mon compte" %></li>
+    <li>Confirmer la mission</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top">Veuillez <strong>confirmer votre participation</strong> à la mission</h2>
+
+  <div class="post">
+    <p>Veuillez valider et confirmer votre participation à la mission « <strong><%= @mission.name %></strong> » pour permettre à l'entreprise d'effectuer un premier paiement.
+
+      <% if @mission.price %>
+        <strong>Prix total de la mission : <%= number_with_delimiter(@mission.price.round(0), delimiter: " ") %> €</strong>
+      <% end %>
+
+    </p>
+    <p class="msg-action">Pour assurer les utilisateurs contre tous risques de fraude et de blanchiment, <strong>LouerUnSenior.com</strong> joue le rôle d'intermédiaire de paiement entre vous et l'entreprise au travers d'un compte de sequestre.</p>
+  </div>
+  <!-- .post -->
+
+  <%= form_tag expert_confirm_path(@mission), method: :patch, class: "form" do %>
+
+    <div class="bloc grey">
+
+      <fieldset>
+
+        <div class="col x2 no-margin">
+          <span class="row x-medium with-margin">
+            <label for="" class="text">Nom de la société <span class="mandatory">*</span></label>
+            <input type="text" class="text validate[required]" name="infos_bancaire[societe]">
+          </span>
+          <span class="row x-large-option">
+            <label for="" class="text">Numéro de Siret / Siren <span class="mandatory">*</span></label>
+            <input type="text" class="text validate[required]" name="infos_bancaire[siren]">
+          </span>
+        </div>
+        <!-- .col -->
+
+        <div class="col x1 no-margin">
+          <label for="" class="text">Adresse de facturation <span class="mandatory">*</span></label>
+          <span class="row x-large">
+            <input type="text" class="text validate[required]" name="infos_bancaire[adresse_facturation]">
+          </span>
+        </div>
+        <!-- .col -->
+
+        <div class="col x1 no-margin">
+          <label for="" class="text">RIB (pour verser les prestations) <span class="mandatory">*</span></label>
+          <span class="row x-large">
+            <textarea id="" class="text validate[required]" name="infos_bancaire[rib]"></textarea>
+          </span>
+        </div>
+        <!-- .col -->
+
+        <div class="col x2 no-margin">
+          <span class="row x-large">
+            <label for="cgu" class="check-box"> J'accepte et je valide le <%= link_to "contrat d'apporteur d'affaires", apporteuraffaires_path, title: "apporteuraffaires", target: "_blank" %><input class="validate[required] check-box" id="cgu" name="cgu" type="checkbox">.</label>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <div class="btn-group">
+      <button type="submit" name= "confirm" class="btn green"><span data-icon="l" class="icon"></span> Valider et confirmer la mission</button>
+      <button type="submit" name= "reject" class="btn orange js-skip-validate"><span data-icon="h" class="icon"></span> Refuser la mission</button>
+    </div>
+    <!-- .btn-group -->
+
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

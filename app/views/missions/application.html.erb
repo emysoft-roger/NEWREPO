@@ -1,0 +1,94 @@
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        MainApp.form();
+    });
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Missions", missions_path, title: "Missions"%></li>
+    <li>Postuler à une mission</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top">Postuler pour la mission : <strong><%= @mission.name %></strong></h2>
+
+  <p>Pour postuler à cette mission, veuillez remplir une courte description de votre candidature.</p>
+
+  <%= form_for @application, url: application_path, method: :post, html: {class: "form"} do |f| %>
+
+    <%= f.hidden_field :mission_id, {value: params[:id]} %>
+
+    <% if params[:invitation] %>
+      <%= hidden_field_tag :invitation_id, params[:invitation] %>
+    <% end %>
+
+    <div class="bloc grey">
+
+      <fieldset>
+
+        <legend><span class="nbr">1</span> Vos <strong>informations personnelles</strong></legend>
+
+        <p class="info-txt">Ne pas inscrire vos coordonnées dans la section description,<br> les informations ci-dessous seront automatiquement envoyées à l'entreprise.</p>
+
+        <div class="col x3">
+          <label for="v-name" class="text hide">Vos informations personnelles</label>
+          <span class="row x-medium">
+            <input id="v-name" type="text" class="text" placeholder="<%= current_expert.full_name %>" disabled>
+          </span>
+          <span class="row x-medium">
+            <input id="v-email" type="text" class="text" placeholder="<%= current_user.email %>" disabled>
+          </span>
+          <span class="row x-medium">
+            <input id="v-tel" type="text" class="text" placeholder="<%= current_expert.tel %>" disabled>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+      <hr>
+
+      <fieldset>
+
+        <legend><span class="nbr">2</span> Résumé de votre <strong>candidature</strong> <span class="mandatory">*</span></legend>
+
+        <div class="col x3">
+          <label for="A REMPLIR for > id" class="text">Quel prix proposez-vous pour cette mission ? <span class="info-label">(comission d'apport d'affaires de 15% incluse)</span></label>
+          <span class="row x-medium">
+            <%= f.text_field :price, class: "text validate[required,custom[integer]]", placeholder: "" %>
+          </span>
+        </div>
+        <!-- .col -->
+        <div class="col x1">
+          <label for="A REMPLIR for > id" class="text">Description de votre candidature</label>
+          <span class="row x-large">
+            <%= f.text_area :motivation, class: "tiny-mce" %>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+      <br>
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <button type="submit" class="btn green" title="Postuler à cette mission">Postuler à cette mission</button>
+    <% if current_expert %>
+      <%= link_to "Annuler", missions_path, class: "btn simple", title: "Annuler" %>
+    <% end %>
+
+  </form>
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

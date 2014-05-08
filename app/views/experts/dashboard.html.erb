@@ -1,0 +1,357 @@
+<% content_for :title do %>Tableau de bord<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript" src="/static/javascripts/cloudinary/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="/static/javascripts/cloudinary/jquery.iframe-transport.js"></script>
+  <script type="text/javascript" src="/static/javascripts/cloudinary/jquery.fileupload.js"></script>
+  <script type="text/javascript" src="/static/javascripts/cloudinary/jquery.cloudinary.js"></script>
+
+  <%= cloudinary_js_config %>
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      MainApp.upload();
+    });
+
+  </script>
+
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Experts", experts_path, title: "Experts" %></li>
+    <li>Mon compte</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <div class="show-header dashboard">
+
+    <div class="show-photo">
+      <div class="js-preview-img">
+        <%= expert_image_tag(@expert) %>
+      </div>
+      <input type="hidden" name="expert_id" id="expert_id" value="<%= @expert.id %>">
+      <span id="uploadBtn" title="Changer la photo" class="change">Changer la photo</span>
+      <% limit = 1500 %>
+      <%= cl_image_upload_tag(:image_id, format: "jpg", quality: 80, crop: :limit, width: limit, height: limit, html: {id: "fileupload", class: "change-upload", style: "", accept: "image/png, image/gif, image/jpeg, image/jpg"}) %>
+    </div>
+    <!-- .show-photo -->
+
+    <div class="show-user">
+      <p class="name"><%= @expert.first_name %> <strong><%= @expert.last_name %></strong> <span class="stars x<%= @expert.stars.count %>"><%= @expert.stars.count %> étoiles</span><span class="note"><%= @expert.note.round(1) %> / 5</span></p>
+      <p class="title"><%= @expert.profile_title %></p>
+      <div class="bottom">
+        <ul class="links">
+          <li>
+            <%= link_to "Modifier mon profil", edit_profile_path(@expert), title: "Modifier mon profil"%>
+          </li>
+          <li>
+            <%= link_to "Voir mon profil en ligne", profile_path(@expert), title: "Voir mon profil en ligne"%>
+          </li>
+        </ul>
+      </div>
+      <div class="info">
+        <ul>
+          <li><span class="nbr-wrap"><span class="nbr"><%= @actives_mission.size %></span></span><span class="txt">Missions effectuées</span></li>
+          <li><span class="nbr-wrap"><span class="nbr"><%= @missions_done.size %></span></span><span class="txt">Recommandations</span></li>
+        </ul>
+        <!-- <p class="ca">C.A. réalisé : <span>15 000 €</span></p> -->
+      </div>
+    </div>
+    <!-- .show-user -->
+
+  </div>
+  <!-- .show-header .dashboard-->
+
+  <div id="left">
+    <%= link_to missions_path, class: "btn blue", title: "Rechercher une mission" do %>
+      Rechercher une mission <span>par secteurs et compétences</span>
+    <% end %>
+    <!-- <a href="" title="Créer une alerte" class="link-simple orange">Créer une alerte</a> -->
+    <br><br>
+    <h3 class="title-medium">Contactez-nous</h3>
+    <div class="bloc grey tiny">
+      <div class="inside-white txt">
+        <p>Une question sur votre compte, un renseignement ? N'hésitez-pas à nous contacter.</p>
+        <span data-icon="j" class="icon"></span> <%= link_to "Contactez-nous", contact_path, title: "Contactez-nous", class: "link-simple orange" %>
+      </div>
+    </div>
+  </div>
+  <!-- #left -->
+
+  <div id="right">
+
+    <h2 class="title-medium">Actions <strong>restantes à effectuer</strong></h2>
+
+    <div class="bloc grey border">
+      <% if not @pending_confirm_missions.empty? or not @pending_applications.empty? %>
+      <ul class="links">
+        <li>Vous avez une ou des missions en attentes de confirmations.</li>
+      </ul>
+      <% end %>
+
+      <% if not @_invited_missions.empty? %>
+      <ul class="links">
+        <li>Vous avez une ou des invitations à des missions sur lesquelles vous devez répondre.</li>
+      </ul>
+      <% end %>
+
+      <% if @pending_confirm_missions.empty? and @pending_applications.empty? and @_invited_missions.empty? and @expert.full? %>
+      <ul class="links">
+        <li>Vous n'avez aucune action à effectuer.</li>
+      </ul>
+      <% end %>
+
+      <% unless @expert.full? %>
+      <ul class="links">
+        <li>Pour postuler à des missions et afficher votre profil sur le site, <%= link_to "veuillez remplir votre profil", edit_profile_path(@expert), title: "veuillez remplir votre profil"%>.</li>
+      </ul>
+      <% end %>
+    </div>
+    <!-- .bloc.grey -->
+
+    <h2 class="title-medium">Candidatures <strong>actives</strong></h2>
+
+    <div class="bloc grey">
+
+      <% if @invited_missions.empty? and @pending_applications.empty? %>
+      <ul class="links">
+        <li>Aucune mission en attente.</li>
+      </ul>
+      <% else %>
+
+      <ul class="list-items missions">
+
+        <% @invited_missions.each do |mission| %>
+        <li>
+
+          <div class="display-none">
+            <div id="popin-reply-invitation-<%= mission.id %>">
+              <% unless mission.pending_expert %>
+                <% invitation = @expert.invitations.where(mission_id: mission.id).last %>
+                <% if invitation %>
+                  <%= render partial: "popin_reply_invitation", locals: {mission: mission, invitation: invitation} %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <!-- .popin -->
+
+          <div class="show-photo">
+            <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+
+          <div class="item">
+            <p class="name">
+              <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+                <%= mission.name %>
+              <% end %>
+            </p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+            <div class="group-button">
+              <% if mission.pending_expert %>
+
+              <%= link_to expert_confirm_path(mission.id), class: "btn green" do %>
+                <span data-icon="l" class="icon"></span> Confirmer la mission
+              <% end %>
+
+              <% else %>
+                <a href="#popin-reply-invitation-<%= mission.id %>" class="btn orange popin-inline" title="Répondre à l'invitation"><span data-icon="j" class="icon"></span> Répondre à l'invitation</a>
+              <% end %>
+            </div>
+          </div>
+          <!-- .item -->
+
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %></span>
+            <span class="link">
+              <%= link_to "Voir la mission", mission_path(mission), title: "Voir la mission"%>
+            </span>
+          </div>
+          <!-- .info -->
+
+        </li>
+        <% end %>
+
+        <% @pending_applications.each do |mission| %>
+        <li>
+
+          <div class="show-photo">
+            <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+
+          <div class="item">
+            <p class="name">
+              <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+                <%= mission.name %>
+              <% end %>
+            </p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+            <div class="group-button">
+              <span class="btn blue" title="En attente de réponse"><span data-icon="m" class="icon"></span> En attente de réponse</span>
+            </div>
+            <!-- <div class="group-button">
+              <a href="/popin-reply-invitation.html" class="btn green popin-dash" title="Répondre à l'invitation"><span data-icon="j" class="icon"></span> Répondre à l'invitation</a>
+            </div> -->
+          </div>
+          <!-- .item -->
+
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %></span>
+            <span class="link">
+              <%= link_to "Supprimer la candidature", confirm_application_path(mission.application_for(current_expert)), method: :delete, confirm: 'Voulez-vous supprimer cette candidature ?'%>
+            </span>
+          </div>
+          <!-- .info -->
+
+        </li>
+        <% end %>
+
+      </ul>
+      <% end %>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <h2 class="title-medium">Missions <strong>en cours</strong></h2>
+
+    <div class="bloc grey">
+
+      <% if @actives_mission.empty? %>
+      <ul class="links">
+        <li>Aucune mission en cours.</li>
+      </ul>
+      <% else %>
+
+      <ul class="list-items missions option-a">
+        <% @actives_mission.each do |mission| %>
+        <li>
+
+          <div class="show-photo">
+            <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+
+          <div class="item">
+            <p class="name">
+              <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+                <%= mission.name %>
+              <% end %>
+            </p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+            <div class="group-button">
+              <span class="btn orange" title="Finaliser la mission"><span data-icon="n" class="icon"></span> Mission en cours</span>
+            </div>
+          </div>
+          <!-- .item -->
+
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %></span>
+            <span class="link">
+              <%= link_to "Voir la mission", mission, title: "Voir la mission" %>
+            </span>
+          </div>
+          <!-- .info -->
+
+          <div class="option dark">
+            <span class="txt"><strong> Mission en cours avec l'entreprise : <%= mission.entreprise.name %></strong></span>
+          </div>
+          <!-- .option -->
+
+        </li>
+        <% end %>
+      </ul>
+      <% end %>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <h2 class="title-medium">Missions <strong>effectuées</strong></h2>
+
+    <div class="bloc grey">
+
+      <% if @missions_done.empty? %>
+      <ul class="links">
+        <li>Aucune mission terminée.</li>
+      </ul>
+      <% else %>
+
+      <ul class="list-items missions option-a">
+        <% @missions_done.each do |mission| %>
+        <li>
+
+          <div class="show-photo">
+            <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+
+          <div class="item">
+            <p class="name">
+              <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+                <%= mission.name %>
+              <% end %>
+            </p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+            <div class="group-button">
+              <span class="btn grey" title="Mission terminée"><span data-icon="l" class="icon"></span> Mission terminée</span>
+            </div>
+          </div>
+          <!-- .item -->
+
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %></span>
+            <span class="link">
+              <%= link_to "Voir la mission", mission, title: "Voir la mission" %>
+            </span>
+          </div>
+          <!-- .info -->
+
+          <div class="option dark">
+            <span class="txt"><strong> Mission terminée avec l'entreprise : <%= mission.entreprise.name %></strong></span>
+          </div>
+          <!-- .option -->
+
+        </li>
+        <% end %>
+      </ul>
+      <% end %>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+  </div>
+  <!-- #right -->
+
+</div>
+<!-- .inside -->

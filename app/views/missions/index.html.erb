@@ -1,0 +1,144 @@
+<% content_for :title do %>Des missions à destinations des experts indépendants<% end %>
+
+<% content_for :meta do %>
+<meta name="description" content="LouerUnSenior.com est l’apporteur d’affaires de l’expert indépendant. Trouvez de nouvelles Missions de consulting, de  formation, de coaching ou de management de transitions. Aucun intermédiaire entre vous et l’entreprise !">
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Missions", missions_path, title: "Missions"%></li>
+    <li>Liste des missions</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <div id="left">
+
+    <%
+    if current_expert
+      link = dashboard_path(current_expert.id)
+    else
+      link = new_expert_path
+    end
+    %>
+
+    <%= link_to link, class: "btn blue ico-mission", title: "Postuler à une mission - Inscrivez-vous" do %>
+      Postuler à une mission <span>inscrivez-vous</span>
+    <% end %>
+
+    <!-- <a href="" title="Créer une alerte" class="link-simple orange">Créer une alerte</a> -->
+    <br><br>
+    <h3 class="title-medium">Filtrer les <strong>missions</strong></h3>
+
+    <%= form_tag missions_path, {class: "form filter", method: :get} do %>
+      <div class="bloc grey">
+        <div class="inside-white">
+          <p class="title-bg">Catégorie</p>
+          <div class="duplicate-item" data-group="secteurs">
+            <%= select_tag 'category', options_from_collection_for_select(@categories, "id", "name", params["category"]), :class => 'text js-select', :prompt => "Sélectionner"%>
+          </div>
+        </div>
+        <br>
+        <div class="inside-white">
+          <p class="title-bg">Secteur d'activité</p>
+          <div class="duplicate-item" data-group="competences">
+            <%= select_tag 'secteur', options_from_collection_for_select(@secteurs, "id", "name", params["secteur"]), :class => 'text js-select', :prompt => "Sélectionner"%>
+          </div>
+        </div>
+        <br>
+        <div class="inside-white">
+          <p class="title-bg">Domaine de compétence</p>
+          <div class="duplicate-item" data-group="competences">
+            <%= select_tag 'competence', options_from_collection_for_select(@competences, "id", "name", params["competence"]), :class => 'text js-select', :prompt => "Sélectionner"%>
+          </div>
+        </div>
+        <p class="delete">
+          <%= link_to "Effacer la recherche", missions_path, title: "Effacer la recherche"%>
+        </p>
+        <button type="submit" class="btn blue" title="Rechercher">Rechercher <span class="icon">►</span></button>
+      </div>
+    <% end %>
+    <!-- .form -->
+
+  </div>
+  <!-- #left -->
+
+  <div id="right">
+
+    <h2 class="title-top">Liste des <strong>missions</strong></h2>
+
+    <div class="bloc grey">
+      <% if @missions.size == 0 %>
+        Aucun résultat correspondant à votre recherche.
+      <% end %>
+
+      <ul class="list-items missions">
+
+        <% @missions.each do |mission| %>
+        <li>
+          <div class="show-photo">
+            <%= link_to mission_path(mission), title: "Voir la mission", class: "" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Catégorie" width="140" height="140">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+          <div class="item">
+            <p class="name"><%= link_to mission_path(mission), title: "Voir la mission", class: "" do %><%= mission.name %><% end %></p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+            <div class="group-button">
+              <%= link_to mission_path(mission), title: "Voir la mission", class: "btn green" do %>
+                <span data-icon="j" class="icon"></span> Voir la mission
+              <% end %>
+            </div>
+          </div>
+          <!-- .item -->
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span><%= mapping_budget(mission) %></span>
+
+            <% unless current_user %>
+              <span class="link"><%= link_to "+ Postuler", new_expert_path, title: "+ Postuler à cette mission", class: "" %></span>
+            <% else %>
+              <% if current_entreprise %>
+                <span class="link"><%= link_to "+ Postuler", new_expert_path, title: "+ Postuler à cette mission", class: "" %></span>
+              <% end %>
+
+              <% if current_expert %>
+
+                <% if current_expert.approved? and not current_expert.has_candidates_to?(mission) and not current_expert.has_been_invited_to?(mission) %>
+                  <span class="link"><%= link_to "+ Postuler", application_path(mission), title: "+ Postuler à cette mission", class: "" %></span>
+
+                <% elsif current_expert.has_candidates_to?(mission) %>
+                  <span class="link"><span>Vous avez postulé à cette mission</span></span>
+
+                <% elsif current_expert.has_been_invited_to?(mission) %>
+                  <span class="link"><span>Vous avez postulé à cette mission</span></span>
+
+                <% else %>
+                  <span class="link"><span>Votre profil doit être validé et rempli pour postuler</span></span>
+                <% end %>
+
+              <% end %>
+            <% end %>
+
+          </div>
+        </li>
+        <% end %>
+
+      </ul>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <%= paginate @missions %>
+
+  </div>
+  <!-- #right -->
+
+</div>
+<!-- .inside -->

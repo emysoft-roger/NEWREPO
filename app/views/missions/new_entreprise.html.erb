@@ -1,0 +1,96 @@
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        MainApp.password();
+        MainApp.form();
+    });
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Missions", missions_path, title: "Missions" %></li>
+    <li>Inscription</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top">Inscription entreprise, <strong>remplissez vos informations</strong></h2>
+
+  <% if @user.errors.any? %>
+    <% @user.errors.messages.each do |field, msg| %>
+      <%= msg[0] %>
+    <% end %>
+  <% end %>
+
+  <%= form_for(@entreprise, {html: {class: "form"}}) do |f| %>
+
+      <div class="bloc grey">
+
+        <fieldset>
+
+          <legend><span class="nbr">1</span> Vos <strong>informations de connexion</strong></legend>
+
+          <div class="col x2">
+            <span class="row x-medium with-margin ico-email">
+              <label for="email" class="text">Votre email <span class="mandatory">*</span></label>
+              <%= email_field :user, :email, {value: @user.email, placeholder: "", :autofocus => true, class: 'text validate[required,custom[email]]'} %>
+
+            </span>
+            <span class="row x-large-option ico-password">
+              <label for="password" class="text">Votre mot de passe <span class="mandatory">*</span></label>
+              <%= password_field :user, :password, {value: @user.password, class: "text validate[required,minSize[8]]", id: "password_field"} %>
+              <span class="form-option">
+                <label for="remember" class="checkbox">
+                  <input id="remember" data-input="password_field" type="checkbox" class="js-pass-toggle"> <span>Afficher le mot de passe</span>
+                </label>
+              </span>
+            </span>
+          </div>
+          <!-- .col -->
+
+        </fieldset>
+        <!-- .fieldset -->
+
+        <hr>
+
+        <fieldset>
+
+          <legend><span class="nbr">2</span> Vos <strong>informations personnelles</strong></legend>
+
+          <div class="col x2">
+            <span class="row x-medium with-margin">
+              <label for="nom" class="text">Votre nom / entreprise <span class="mandatory">*</span></label>
+              <%= f.text_field :name, placeholder: "", class: "input-uppercase text validate[required,minSize[2],maxSize[200]]" %>
+              <span class="info">Nom non affiché sur le profil en ligne</span>
+            </span>
+            <span class="row x-medium">
+              <label for="tel" class="text">Numéro de téléphone <span class="mandatory">*</span></label>
+              <%= f.text_field :tel, placeholder: "", class: 'text validate[required,minSize[6],maxSize[25],custom[tel]]' %>
+              <span class="info">Numéro non affiché sur le profil en ligne</span>
+            </span>
+          </div>
+          <!-- .col -->
+
+          <div class="col x2">
+            <span class="row x-large">
+              <label for="cgu" class="check-box"> J'ai lu et j'accepte les <%= link_to "CGU - CGV", cgu_cgv_path, title: "CGU - CGV", target: "_blank" %><input class="validate[required] check-box" id="cgu" name="cgu" type="checkbox">.</label>
+            </span>
+          </div>
+          <!-- .col -->
+
+        </fieldset>
+        <!-- .fieldset -->
+
+      </div>
+      <!-- .bloc.grey -->
+
+      <button type="submit" name= "validate" class="btn green medium">Valider <span>et déposer une mission</span></button>
+      <button type="submit" name= "dashboard" class="btn simple">Je le ferai plus tard, valider et accéder à mon compte</button>
+
+    <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

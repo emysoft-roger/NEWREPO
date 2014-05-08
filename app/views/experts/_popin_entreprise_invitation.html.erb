@@ -1,0 +1,32 @@
+<% missions = current_entreprise.possible_missions_for(expert) %>
+<div class="inside-popin">
+
+  <p class="head">Veuillez <strong>sélectionner la mission</strong> sur laquelle vous souhaitez inviter l'expert</p>
+
+  <div class="clearfix">
+    <% if missions.size == 0 %>
+      <p class="center msg">Vous devez attendre que l'une de vos missions soient validées par LouerUnSenior <br> ou déposer une nouvelle mission pour inviter cet expert.</p>
+      <div class="button-group center">
+        <%= link_to new_mission_path, class: "btn green" do %>
+          <span data-icon="j" class="icon"></span> Déposer une mission
+        <% end %>
+        <a href="" class="btn blue popin-dash" onclick='parent.$.colorbox.close(); return false;' title="Fermer cette fenêtre"><span data-icon="h" class="icon"></span> Fermer cette fenêtre</a>
+      </div>
+    <% else %>
+
+    <%= form_tag invit_path(expert.id), method: :post, class: "form center" do %>
+      <div class="bloc grey m-reset">
+        <%= select_tag "mission_id", options_from_collection_for_select(missions, "id", "name"), {:class => 'text validate[required]', :id => "missions", :prompt => "Sélectionner"} %>
+      </div>
+      <div class="button-group center">
+        <button type="submit" class="btn green" title="Inviter à candidater cet expert"><span data-icon="j" class="icon"></span> Inviter à candidater cet expert</button>
+        <a href="" class="btn blue popin-dash" onclick='parent.$.colorbox.close(); return false;' title="Fermer cette fenêtre"><span data-icon="h" class="icon"></span> Fermer cette fenêtre</a>
+      </div>
+    <% end %>
+    <% end %>
+
+  </div>
+  <!-- .clearfix -->
+
+</div>
+<!-- .inside-popin-->

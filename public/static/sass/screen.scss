@@ -1,0 +1,59 @@
+// ---------------------------------------------------------------------------
+// Compass
+// ---------------------------------------------------------------------------
+
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/css3/deprecated-support";
+
+// ---------------------------------------------------------------------------
+// Susy
+// ---------------------------------------------------------------------------
+
+@import "susy";
+
+
+// ---------------------------------------------------------------------------
+// Grid
+// ---------------------------------------------------------------------------
+
+$total-columns      : 12;
+$column-width       : 4em;
+$gutter-width       : 1em;
+$grid-padding       : 0px;
+$container-width    : 980px;
+$container-style    : static;
+
+// ---------------------------------------------------------------------------
+// Sprites
+// ---------------------------------------------------------------------------
+
+/******************************************************/
+/* SPRITES
+/******************************************************/
+/* #sprites
+/* -------------------------------------------------- */
+
+// $ico-spacing: 20px;
+// $logo-spacing: 20px;
+
+@import "sprites/ico/*.png";
+@import "sprites/logo/*.png";
+// @import "sprites/bg/*.png";
+
+// ---------------------------------------------------------------------------
+// Import
+// ---------------------------------------------------------------------------
+
+@import "partials/mixins"; // OK
+@import "partials/variables"; // OK
+@import "partials/reset"; // OK
+@import "partials/helpers"; // OK
+@import "partials/layout"; // OK
+@import "partials/header"; // OK
+@import "partials/content";
+@import "partials/footer"; // OK
+@import "partials/form";
+@import "partials/button";
+@import "partials/asset"; // OK
+@import "partials/spacing"; // OK

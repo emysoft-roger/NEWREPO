@@ -1,0 +1,14 @@
+<p>Bonjour <strong><%= @mission.entreprise.name %></strong>,</p>
+
+<p>Votre mission <strong><%= link_to @mission.name, mission_url(@mission) %></strong> a bien été validée par LouerUnSenior.com. La mission est désormais publiée et peut être consultée par tous.</p>
+
+<p>Vous pouvez dès à présent gérer les candidatures en cliquant sur ce lien : <%= link_to "Tableau de bord", entreprise_dashboard_url(@entreprise) %></p>
+
+<p>Lorsque vous aurez choisi votre expert, n'oubliez pas de l'indiquer sur votre <strong>tableau de bord</strong> pour ne plus recevoir de propositions supplémentaires.</p>
+
+<p>--------------------</p>
+
+<p>L'équipe de <a href="http://louerunsenior.com">LouerUnSenior.com</a> reste à votre disposition pour répondre à toutes vos questions. <br>
+Tél : 09 70 40 80 72 - Email : contact@louerunsenior.com  <br>
+A très bientôt sur <a href="http://louerunsenior.com">LouerUnSenior.com</a> <br>
+Twitter : @louerunsenior - Linkedin : louerunsenior.com</p>

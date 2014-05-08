@@ -1,0 +1,55 @@
+// Fonts
+// --------------------------------------------------
+
+$arial           :        Arial, "Helvetica Neue", Helvetica, sans-serif !default;
+$times           :        Times, "Times New Roman", Georgia, serif !default;
+$verdana         :        Verdana, Geneva, sans-serif !default;
+$georgia         :        Georgia, Cambria, "Times New Roman", Times, serif !default;
+$lucida          :        "Lucida Grande", Tahoma, Verdana, Arial, sans-serif !default;
+$monospace       :        "Bitstream Vera Sans Mono", Consolas, Courier, monospace !default;
+$opensans        :        'Open Sans', sans-serif;
+
+// Backgrounds
+// --------------------------------------------------
+
+// Colors
+// --------------------------------------------------
+
+$ColorBody          :                #666666 !default;
+
+// --------------------------------------------------
+
+$BlueLight          :                #459db2 !default;
+$BlueMid            :                #3c899b !default;
+$BlueDark           :                #306c7a !default;
+$BlueDarkPlus       :                #2a616d !default;
+
+// --------------------------------------------------
+
+$Orange             :                #f4712a !default;
+$Green              :                #3ea216 !default;
+$Red                :                #cc0000 !default;
+$RedPlus            :                #9b0000 !default;
+
+// --------------------------------------------------
+
+$GreyBtn            :                #ecf0f1 !default;
+$GreyLightPlus      :                #aeaeae !default;
+$GreyLight          :                #6f6f6f !default;
+$GreyDark           :                #353535 !default;
+
+.color-dark     { color: $GreyDark; }
+.color-orange   { color: $Orange; }
+.color-green    { color: $Green; }
+.color-blue     { color: $BlueMid; }
+
+// --------------------------------------------------
+
+$BgGreyLight        :                #ecf0f1 !default;
+
+
+/******************************************************/
+/* FONTS
+/******************************************************/
+/* #fonts
+/* -------------------------------------------------- */

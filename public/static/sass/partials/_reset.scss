@@ -1,0 +1,160 @@
+/******************************************************/
+/* RESET
+/******************************************************/
+/* -------------------------------------------------- */
+/* #misc
+/* #form
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* #misc
+/* -------------------------------------------------- */
+
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.transition {
+  @include transition-timing-function(ease-in-out);
+  @include transition-property(all);
+  @include transition-duration(0.2s);
+}
+
+// embed,
+// iframe,
+// object {
+//   max-width: 100%;
+//   width: 100%;
+// }
+
+img {
+  height: auto;
+  vertical-align: middle;
+  width: auto;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+img, table, td,
+blockquote, code, pre,
+textarea, input, video {
+  max-width: 100%;
+}
+
+select,
+button,
+textarea,
+input {
+  font-family: $arial;
+}
+
+p, ul, ol dl,
+blockquote, pre,
+h1, h2, h3, h4, h5, h6,
+legend {
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+sup, sub {
+  vertical-align: 0;
+  position: relative;
+}
+
+sup {
+  bottom: 1ex;
+}
+
+sub {
+  top: .5ex;
+}
+
+/* #form
+/* -------------------------------------------------- */
+
+form,
+fieldset {
+  border: none;
+}
+
+input,
+button, select,
+label, .btn {
+  vertical-align: middle;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+label { cursor: pointer; vertical-align: middle; }
+
+legend {
+  border: 0;
+  white-space: normal;
+}
+
+button,
+input,
+select {
+  font-size: inherit;
+  margin: 0;
+  border: 0;
+  vertical-align: middle;
+}
+
+textarea {
+  overflow: auto;
+  min-height: 5em;
+  font-size: inherit;
+  font-family: inherit;
+  vertical-align: top;
+  resize: vertical;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0;
+  *width: 13px; *height: 13px;
+  vertical-align: middle;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+
+input[type="search"] {
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+}
+
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}

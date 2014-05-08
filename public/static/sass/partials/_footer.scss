@@ -1,0 +1,116 @@
+/******************************************************/
+/* FOOTER
+/******************************************************/
+/* -------------------------------------------------- */
+/* #footer
+/* #footer-bottom
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/* #footer
+/* -------------------------------------------------- */
+
+#footer {
+  @extend .clearfix;
+  margin-top: 100px;
+  border-top: 2px solid $BlueLight;
+  background: $BgGreyLight;
+  // L'ensemble des colonnes
+  .col {
+    margin: 20px auto;
+    // Les colonnes
+    > li {
+      @include font-size(1.2);
+      @include line-height(1.7);
+      float: left;
+      margin-right: 60px;
+      color: $ColorBody;
+      // La dernière colonne (c'est quoi ?)
+      &.fixed {
+        width: 430px;
+        float: right;
+        margin-right: 0;
+      }
+    }
+    // Les titres en noir
+    .title {
+      @include font-size(1.8);
+      color: $GreyDark;
+      margin-bottom: 10px;
+    }
+    // Les liens rubriques
+    a {
+      color: $ColorBody;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+      // Les liens en bleu
+      &.link {
+        display: inline-block;
+        color: $BlueMid;
+        margin-top: 10px;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+/* #footer-bottom
+/* -------------------------------------------------- */
+
+#footer-bottom {
+  @include font-size(1.3);
+  background: $BlueLight;
+  height: 60px;
+  color: #FFF;
+  // Logo
+  .logo {
+    @include sp-logo("logo-lus-f");
+    @include hide;
+    display: inline-block;
+    float: left;
+    margin: 24px 20px 0 0;
+  }
+  // Social
+  .social {
+    li {
+      float: left;
+      margin: 2px 2px;
+    }
+    [class^="ico-"] a,
+    [class*=" ico-"] a {
+      @include hide;
+      display: inline-block;
+    }
+    .ico-fb a {
+      @include sp-ico("ico-s-fb");
+    }
+    .ico-tw a {
+      @include sp-ico("ico-s-twitter");
+    }
+    .ico-vi a {
+      @include sp-ico("ico-s-viadeo");
+    }
+    .ico-ln a {
+      @include sp-ico("ico-s-ln");
+    }
+  }
+  // Copyright
+  .txt {
+    float: left;
+    margin: 19px 0 0 20px;
+  }
+  // La nav de droite
+  .nav {
+    float: right;
+    margin: 19px 0 0 0;
+    li {
+      display: inline-block;
+    }
+    a {
+      color: #FFF;
+      text-decoration: none;
+      margin-left: 10px;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}

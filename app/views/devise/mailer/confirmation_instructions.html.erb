@@ -1,0 +1,25 @@
+<p>Bonjour,</p>
+
+<p>Votre demande d’inscription sur LouerUnSenior.com a bien été enregistrée.
+<br> Un email de confirmation vous sera envoyé dès la validation et la publication de votre profil.</p>
+
+<p>Veuillez à bien remplir votre profil, sans quoi celui-ci ne sera pas visible en ligne.</p>
+
+<%
+if @resource.expert
+    link = dashboard_url(@resource.expert)
+elsif @resource.entreprise
+    link = entreprise_dashboard_url(@resource.entreprise)
+else
+    link = root_url
+end
+%>
+
+<p>Vous pouvez vous connecter sur votre tableau de bord en cliquant sur ce lien : <%= link_to "Tableau de bord", link %></p>
+
+<p>--------------------</p>
+
+<p>L'équipe de <a href="http://louerunsenior.com">LouerUnSenior.com</a> reste à votre disposition pour répondre à toutes vos questions. <br>
+Tél : 09 70 40 80 72 - Email : contact@louerunsenior.com  <br>
+A très bientôt sur <a href="http://louerunsenior.com">LouerUnSenior.com</a> <br>
+Twitter : @louerunsenior - Linkedin : louerunsenior.com</p>

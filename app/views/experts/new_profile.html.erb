@@ -1,0 +1,15 @@
+<% content_for :headlines do %>
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Experts", experts_path, title: "Experts" %></li>
+    <li>Ajouter votre profil</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top">Inscription, <strong>remplissez votre profil</strong></h2>
+
+  <p>Les informations à remplir ci-dessous apparaissent dans votre profil public. <br> N'oubliez pas de le rendre clair, percutant et synthétique pour réaliser plus de missions.</p>
+
+<% end %>
+
+<%= render partial: "form_profile" %>

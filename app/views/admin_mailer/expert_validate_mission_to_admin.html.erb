@@ -1,0 +1,15 @@
+<p>ID de la mission : <strong><%= @mission.id %></strong> - Titre de la mission : <strong><%= @mission.name %></strong></p>
+
+<p>Expert : <strong><%= @expert.full_name %></strong> - email : <strong><%= @expert.user.email %></strong></p>
+
+<p>Entreprise : <strong><%= @entreprise.name %></strong> - email : <strong><%= @entreprise.user.email %></strong></p>
+
+<p><strong>Coordonnées bancaires</strong></p>
+<p>
+  - <%= @infos_bancaire['societe'] %> <br>
+  - <%= @infos_bancaire['siren'] %> <br>
+  - <%= @infos_bancaire['adresse_facturation'] %> <br>
+  - <%= @infos_bancaire['rib'] %>
+</p>
+
+<p>- <%= link_to "Administration", admin_experts_url %></p>

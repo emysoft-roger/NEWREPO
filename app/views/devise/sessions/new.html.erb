@@ -1,0 +1,66 @@
+<% content_for :js do %>
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      MainApp.form();
+    });
+
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li>Se connecter</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top"> Veuillez entrer <strong>vos informations de connexion</strong></h2>
+
+  <p class="msg-action">Si vous vous êtes pré-inscrit avant le 19/12/2013, <br> veuillez réinisialiser votre mot de passe en cliquant sur le lien suivant : <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %> <%= link_to "Mot de passe oublié ?", new_password_path(resource_name), title: "Mot de passe oublié ?" %><% end -%></p>
+
+  <br>
+
+  <% if flash[:alert] %>
+    <p><strong><%= flash[:alert] %></strong></p>
+  <% end %>
+
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "form"} ) do |f| %>
+
+    <div class="bloc grey">
+
+      <fieldset>
+
+        <div class="col x2 no-margin">
+          <span class="row x-medium with-margin ico-email">
+            <label for="user_email" class="text">Votre email <span class="mandatory">*</span></label>
+            <%= f.email_field :email, :autofocus => true, class: 'text validate[required,custom[email]]' %>
+          </span>
+          <span class="row x-large-option with-margin ico-password">
+            <label for="user_password" class="text">Votre mot de passe <span class="mandatory">*</span></label>
+            <%= f.password_field :password, class: 'text validate[required,minSize[6]]' %>
+            <span class="form-option">
+              <% if devise_mapping.rememberable? -%>
+                <%= f.check_box :remember_me %> <label for="user_remember_me">Garder ma session active</label>
+              <% end -%>
+            </span>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <button type="submit" class="btn green" title="Se connecter">Se connecter</button>
+
+    <%= render "devise/shared/links" %>
+
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

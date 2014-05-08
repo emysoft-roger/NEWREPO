@@ -1,0 +1,81 @@
+<div id="header">
+
+  <div class="inside">
+
+    <h1 class="logo"><a href="/" title="Accueil">LouerUnSenior.com <span>Des experts au service des entreprises de croissance</span></a></h1>
+
+    <ul class="nav-top">
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to "Se déconnecter", sign_out_path, title: "Se déconnecter"%>
+        </li>
+        <li>
+          <% if current_expert %>
+            <%= link_to dashboard_path(current_expert.id), title: "Mon compte" do %>
+              <span class="btn orange">Mon compte</span>
+            <% end %>
+          <% end %>
+          <% if current_user.entreprise %>
+            <%= link_to entreprise_dashboard_path(current_entreprise.id), title: "Mon compte" do %>
+              <span class="btn orange">Mon compte</span>
+            <% end %>
+          <% end %>
+        </li>
+      <% else %>
+        <li id="header-bottom">
+          <ul class="social" >
+            <li class="ico-fb headerinline"><a href="https://www.facebook.com/louerunsenior" title="Facebook">Facebook</a></li>
+            <li class="ico-tw headerinline"><a href="https://twitter.com/louerunsenior" title="Twitter">Twitter</a></li>
+            <li class="ico-vi headerinline"><a href="http://fr.viadeo.com/fr/company/louerunsenior-com" title="Viadeo">Viadeo</a></li>
+            <li class="ico-ln headerinline"><a href="http://www.linkedin.com/company/3354016?trk=tyah&trkInfo=tas%3Alouerunsenior" title="Linkedin">Linkedin</a></li>
+          </ul>
+        </li>
+        <li>
+          <%= link_to "Se connecter", new_user_session_path, title: "Se connecter" %>
+        </li>
+        
+        <li>
+          <%= link_to "/login-popin.html", title: "Inscription", class: "login-popin" do %>
+            <span class="btn orange">Inscription</span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <!-- .nav-top -->
+
+  </div>
+  <!-- .inside -->
+
+  <div class="nav-wrap">
+
+    <div class="inside">
+
+      <ul class="nav-primary">
+        <li><a href="/" title="Accueil"><div data-icon="c" class="icon"></div></a></li>
+        <li><%= link_to "Missions", missions_path, title: "Missions" %></li>
+        <li><%= link_to "Experts", experts_path, title: "Experts" %></li>
+        <li><%= link_to "Comment ça marche ?", comment_ca_marche_path, title: "Comment ça marche ?" %></li>
+        <li><%= link_to "Nous contacter", contact_path, title: "Nous contacter" %></li>
+      </ul>
+      <!-- .nav-primary -->
+
+      <ul class="nav-secondary">
+        <li><%= link_to "L'équipe LouerUnSenior", equipe_path, title: "L'équipe LouerUnSenior" %></li>
+        <li><a href="http://blog.louerunsenior.com" title="Blog">Blog</a></li>
+      </ul>
+      <!-- .nav-secondary -->
+
+      <!-- <div class="form form-search">
+        <input type="search" class="text" placeholder="Rechercher un expert, une mission...">
+        <button type="submit"><span data-icon="d" class="icon"></span></button>
+      </div> -->
+      <!-- .form-search -->
+
+    </div>
+    <!-- .inside -->
+
+  </div>
+  <!-- .nav-wrap -->
+
+</div>
+<!-- #header -->

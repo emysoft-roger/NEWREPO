@@ -1,0 +1,1483 @@
+/******************************************************/
+/* CONTENT
+/******************************************************/
+/* -------------------------------------------------- */
+/* .bloc
+/* .cmc-head
+/* .cmc-content
+/* .msg-action
+/* .team
+/* .post
+/* .inside-popin
+/* .preview-valid
+/* .pagination
+/* .push-bg
+/* .push-home
+/* .push-wrap
+/* .push-wrap (content)
+/* .show-*
+/* .secteur-domaine (profil)
+/* .experience-pro (profil)
+/* .cursus-academique (profil)
+/* .list-items
+/* .list-items .item
+/* .list-items.missions
+/* .list-items.missions .item
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/*  .bloc
+/* -------------------------------------------------- */
+
+.bloc {
+  @extend .clearfix;
+  position: relative;
+  padding: 20px 20px;
+  margin: 30px 0;
+  &.grey {
+    background: $BgGreyLight;
+    &.tiny {
+      padding: 10px 10px;
+    }
+    &.border {
+      border: 2px solid $BlueMid;
+      color: $GreyDark;
+    }
+  }
+  .inside-white {
+    background: #FFF;
+    padding: 10px 0;
+    &.txt {
+      padding: 10px;
+      ul, li,
+      p {
+        @include font-size(1.4);
+        @include line-height(1.8);
+      }
+      .icon {
+        @include font-size(1.3);
+        margin-right: 3px;
+      }
+    }
+  }
+  .links {
+    @include font-size(1.4);
+    &:before {
+      content: '■';
+      float: left;
+      color: $Orange;
+      margin-right: 10px;
+      margin-top: -2px;
+    }
+    a {
+      color: $BlueMid;
+    }
+  }
+}
+
+/* .cmc-head
+/* -------------------------------------------------- */
+
+.cmc-head {
+  text-align: center;
+  margin: 30px 0;
+  .title {
+    @include font-size(3.0);
+    font-style: italic;
+    text-transform: uppercase;
+    color: $GreyDark;
+    margin: 15px 0;
+    margin-bottom: 10px;
+  }
+  .title-bis {
+    @include font-size(2.4);
+    color: #808080;
+  }
+}
+
+/* .cmc-content
+/* -------------------------------------------------- */
+
+.col-w-left {
+  width: 45%;
+  float: left;
+}
+.col-w-right {
+  width: 45%;
+  float: right;
+}
+
+.cmc-content {
+  padding: 25px 35px;
+  .col-left {
+    float: left;
+    width: 50%;
+    &.bordered {
+      width: 55%;
+      border-right: 1px dashed $GreyLightPlus;
+      padding-right: 20px;
+      margin-right: 20px;
+    }
+  }
+  .col-right {
+    float: right;
+    width: 50%;
+    &.bordered {
+      width: 40%;
+    }
+  }
+  .col-left,
+  .col-right {
+    p.title {
+      @include font-size(2.4);
+      font-weight: bold;
+      color: $BlueLight;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
+    p.txt {
+      @include font-size(1.4);
+      @include line-height(1.8);
+      color: $GreyDark;
+    }
+    p.image {
+      float: left;
+      margin-right: 20px;
+    }
+  }
+  .col-center {
+    text-align: center;
+    p.title {
+      @include font-size(2.4);
+      font-weight: bold;
+      color: $BlueLight;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
+    p.txt {
+      @include font-size(1.8);
+      @include line-height(2.2);
+      color: $GreyDark;
+    }
+    p.image {
+      margin-bottom: 15px;
+    }
+  }
+  .col-x3 {
+    float: left;
+    width: 33.3%;
+    text-align: center;
+    border-right: 1px dashed $GreyLightPlus;
+    height: 160px;
+    &.last {
+      border-right: 0;
+    }
+    .image {
+      margin-bottom: 10px;
+    }
+    p.txt {
+      @include font-size(1.6);
+      @include line-height(2.0);
+      color: $GreyDark;
+    }
+  }
+  p.title-ce {
+    @include font-size(2.5);
+    @include line-height(2.7);
+    text-align: center;
+    color: $BlueDarkPlus;
+    font-weight: normal;
+    strong {
+      @include font-size(1.7);
+      display: block;
+      color: $BlueLight;
+    }
+  }
+  p.title-grey {
+    @include font-size(1.8);
+    @include line-height(2.4);
+    text-align: center;
+    color: $ColorBody;
+    strong {
+      color: $GreyDark;
+    }
+  }
+  p.title-list {
+    @include font-size(1.8);
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: $BlueLight;
+  }
+  p.text + p.text {
+    margin-top: 10px;
+  }
+  ul.list {
+    li + li {
+      margin-top: 7px;
+    }
+    li {
+      @include font-size(1.4);
+      background: url('../images/cmc/ico-check.png') 0 6px no-repeat;
+      padding-left: 25px;
+      color: $GreyDark;
+      font-weight: bold;
+    }
+  }
+}
+
+/* .msg-action
+/* -------------------------------------------------- */
+
+.msg-action {
+  background: $GreyBtn;
+  margin-top: 20px;
+  text-align: center;
+  border: 2px solid $BlueMid;
+  padding: 20px;
+  a {
+    color: $Orange;
+    &:hover {
+      color: darken($Orange, 10%)
+    }
+  }
+}
+
+/* .team
+/* -------------------------------------------------- */
+
+.team {
+  ul {
+    margin: 0 0 30px 0;
+  }
+  li {
+    position: relative;
+    &:nth-child(1) {
+      margin-top: 20px;
+      margin-bottom: 50px;
+    }
+    &:nth-child(2) {
+      margin-bottom: 65px;
+    }
+  }
+  .photo {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -86px;
+  }
+  p + p {
+    margin-top: 20px;
+  }
+  p {
+    border: 1px solid darken(#ECF0F1, 15%);
+    background: #FFF;
+    padding: 20px;
+    padding-right: 90px;
+    margin-right: 130px;
+    strong {
+      color: $BlueLight;
+    }
+    em {
+      font-weight: normal;
+      font-style: normal;
+      color: $BlueLight;
+    }
+  }
+}
+
+/* .post
+/* -------------------------------------------------- */
+
+.post {
+  p + p {
+    margin-top: 15px;
+  }
+  ul {
+    margin: 15px 0;
+    > li {
+      margin: 15px 0;
+      margin-left: 30px;
+      list-style: disc;
+    }
+  }
+  p {
+  }
+  a {
+    color: $BlueMid;
+  }
+}
+
+/* .inside-popin
+/* -------------------------------------------------- */
+
+.inside-popin {
+  @include border-radius(10px);
+  padding: 0 30px;
+  padding-top: 30px;
+  // padding-bottom: 40px;
+  background: #FFF;
+  height: auto;
+  width: 900px;
+  .close {
+    @include font-size(2.2);
+    @include absolute-right(10px, 10px);
+    padding: 2px 10px;
+  }
+  .head {
+    @include font-size(2.0);
+    text-align: center;
+    display: block;
+    border-bottom: 1px dashed $GreyLightPlus;
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+  }
+  .push-wrap {
+    margin-top: -20px;
+    background: none;
+    .push {
+      border: 0;
+      width: 340px;
+      margin: 0;
+      &:before,
+      &:after {
+        display: none;
+      }
+      .btn {
+        @include font-size(2.0);
+        margin: 15px 0 0 0;
+        padding: 10px 20px;
+        width: auto;
+      }
+    }
+  }
+  p + p {
+    margin-top: 15px;
+  }
+  p {
+    @include font-size(1.4);
+    &.info-txt {
+      @include font-size(1.2);
+      @include line-height(1.9);
+      a {
+        color: $BlueMid;
+      }
+    }
+    &.center {
+      text-align: center;
+      &.msg {
+        @include font-size(1.6);
+      }
+    }
+  }
+  .application-content {
+    height: 200px;
+    overflow: auto;
+    padding-right: 20px;
+  }
+  .title {
+    @include font-size(2.2);
+    border-bottom: 2px solid $BgGreyLight;
+    padding-bottom: 10px;
+    color: $BlueMid;
+    margin-bottom: 15px;
+    strong {
+      display: inline-block;
+      text-transform: lowercase;
+      &:first-letter {
+        text-transform: capitalize;
+      }
+      span {
+        text-transform: uppercase;
+        color: $BlueMid;
+      }
+    }
+  }
+  .col-left,
+  .col-right {
+  }
+  .col-left {
+    width: 55%;
+    float: left;
+    span {
+      color: $Orange;
+    }
+    .price {
+      @include font-size(1.6);
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  }
+  .col-right {
+    width: 40%;
+    float: right;
+    .btn {
+      margin-top: 15px;
+    }
+    .info {
+      margin-top: 15px;
+      li {
+        background: $BgGreyLight;
+        padding: 5px 10px;
+        margin: 5px 0;
+        color: $GreyDark;
+        .user {
+          display: inline-block;
+          text-transform: lowercase;
+          &:first-letter {
+            text-transform: capitalize;
+          }
+          span {
+            text-transform: uppercase;
+          }
+        }
+        .ico {
+          font-size: 12px;
+          line-height: 12px;
+          color: $Orange;
+          margin-right: 5px;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .button-group {
+    border-top: 1px dashed $GreyLightPlus;
+    padding-top: 30px;
+    margin-top: 50px;
+    &.no-border {
+      border: 0;
+      padding-top: 0;
+      margin-top: 0;
+    }
+    &.center {
+      text-align: center;
+    }
+    .btn {
+      @include font-size(1.6);
+      margin: 0 10px;
+    }
+  }
+}
+
+/* .preview-valid
+/* -------------------------------------------------- */
+
+.preview-valid {
+  text-align: center;
+  border-bottom: 1px dashed $GreyLightPlus;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  .btn {
+    margin: 0 5px;
+  }
+  p {
+    margin-bottom: 10px;
+    color: $GreyDark;
+  }
+}
+
+/* .pagination
+/* -------------------------------------------------- */
+
+.pagination {
+  @include font-size(1.4);
+  text-align: center;
+  color: $BlueMid;
+  .current {
+    font-weight: bold;
+  }
+  span {
+    margin: 0 5px;
+  }
+  a {
+    color: $GreyDark;
+    &:hover {
+      color: $Orange;
+    }
+  }
+}
+
+/* .push-bg
+/* -------------------------------------------------- */
+
+.push-bg {
+  position: absolute;
+  z-index: -1;
+  top: 0px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+/* .push-home
+/* -------------------------------------------------- */
+
+.push-home {
+  position: relative;
+  background: url("../images/push-bg.jpg") left top no-repeat;
+  height: 490px;
+  margin-top: -35px;
+  padding-top: 40px;
+  z-index: 2;
+}
+
+/* .push-wrap
+/* -------------------------------------------------- */
+
+.push-wrap {
+  background: url("../images/push-past.png") center center no-repeat;
+  text-align: center;
+  margin-top: 100px;
+  .push {
+    @include border-radius(10px);
+    position: relative;
+    display: inline-block;
+    border: 1px solid #83a8b0;
+    background: #FFF;
+    margin: 0 50px;
+    padding: 20px 30px 0 30px;
+    width: 380px;
+    &:before {
+      content: '';
+      position: absolute;
+      top: -59px;
+      left: 50%;
+      margin-left: -43px;
+      width: 87px;
+      height: 59px;
+    }
+    &.left {
+      &:before {
+        @include sp-ico("ico-push-entreprise");
+      }
+    }
+    &.right {
+      &:before {
+        @include sp-ico("ico-push-expert");
+      }
+    }
+    &:after {
+      background: url("../images/push-shadow.png") 0 0 no-repeat;
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      margin-left: -168px;
+      width: 337px;
+      height: 16px;
+    }
+  }
+}
+
+/* .push-wrap (content)
+/* -------------------------------------------------- */
+
+.push-wrap {
+  .push {
+    p {
+      margin: 10px 0;
+    }
+    .title {
+      @include font-size(2.4);
+      @include line-height(2.6);
+      color: $BlueDark;
+      strong {
+        display: block;
+        text-transform: uppercase;
+        color: $BlueLight;
+      }
+    }
+    .link {
+      @include font-size(1.4);
+      margin-top: 10px;
+      color: $ColorBody;
+      a {
+        @include font-size(1.4);
+        color: $ColorBody;
+        margin-left: 5px;
+        &:hover {
+          color: $Orange;
+        }
+      }
+    }
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+/* .show-*
+/* -------------------------------------------------- */
+
+.show-header {
+  position: relative;
+  @extend .clearfix;
+  &.dashboard {
+    border-bottom: 1px dashed $GreyLightPlus;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  .show-photo {
+    margin-right: 20px;
+    img {
+      padding: 5px;
+    }
+  }
+}
+
+.show-photo {
+  position: relative;
+  float: left;
+  // width: 145px;
+  // height: 145px;
+  margin-right: 25px;
+  img {
+    display: block;
+    border: 3px solid #e3e3e3;
+    // width: 145px;
+    // height: 145px;
+  }
+  .change-upload {
+    @include opacity(0);
+    cursor: pointer;
+    position: absolute;
+    bottom: 3px;
+  }
+  &:hover {
+    .change {
+      background: $GreyLight;
+    }
+  }
+  .change {
+    @include font-size(1.3);
+    position: absolute;
+    padding: 2px 0;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    // width: 139px;
+    text-align: center;
+    background: $GreyLightPlus;
+    color: #FFF;
+    text-decoration: none;
+    &:hover {
+      background: $GreyLight;
+    }
+  }
+}
+
+.show-user {
+  float: right;
+  position: relative;
+  width: 520px;
+  height: 155px;
+  padding-top: 5px;
+  color: $GreyDark;
+
+  // Dashboard
+  .dashboard & {
+    width: 800px;
+    &.entreprise {
+      width: 100%;
+      // height: 90px;
+      height: auto;
+      float: left;
+      .btn {
+        position: relative;
+        margin-top: 15px;
+      }
+    }
+    .title {
+      width: 450px;
+    }
+  }
+
+  // Content
+  .btn {
+    @include absolute-b-right(0, 0);
+  }
+
+  .title {
+    @include font-size(1.7);
+    font-style: italic;
+    color: lighten($GreyDark, 20%);
+  }
+
+  .stars {
+    @include hide;
+    display: inline-block;
+    margin-bottom: 5px;
+    &.x0 {
+      @include sp-ico("star-x0");
+    }
+    &.x1 {
+      @include sp-ico("star-x1");
+    }
+    &.x2 {
+      @include sp-ico("star-x2");
+    }
+    &.x3 {
+      @include sp-ico("star-x3");
+    }
+    &.x4 {
+      @include sp-ico("star-x4");
+    }
+    &.x5 {
+      @include sp-ico("star-x5");
+    }
+  }
+
+  .name {
+    @include font-size(2.8);
+    @include line-height(3.2);
+    margin-bottom: 3px;
+    width: 650px;
+    &.mission {
+      @include font-size(2.0);
+    }
+    strong {
+      // @include font-size(2.4);
+    }
+    .stars {
+      margin-bottom: 0;
+      margin-left: 25px;
+      vertical-align: middle;
+    }
+    .note {
+      @include font-size(1.2);
+      display: inline-block;
+      color: #858585;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+  }
+
+  .bottom {
+    @include font-size(1.4);
+    @include line-height(1.8);
+    position: absolute;
+    font-weight: bold;
+    bottom: 0px;
+    color: $BlueLight;
+    span {
+      @include font-size(1.4);
+      color: $GreyDark;
+      font-weight: normal;
+    }
+    .links {
+      a {
+        color: $Orange;
+        &:hover {
+          color: darken($Orange, 10%)
+        }
+      }
+    }
+  }
+
+  .info {
+    @include absolute-right(5px, 0);
+    ul {
+      @extend .clearfix;
+    }
+    li {
+      float: left;
+      text-align: center;
+      &:first-child {
+        border-right: 1px dashed $GreyLightPlus;
+        padding-right: 20px;
+        margin-right: 20px;
+      }
+    }
+    .nbr-wrap {
+      @include border-radius(50%);
+      display: inline-block;
+      background: #FFF;
+      border: 1px solid #cfcfcf;
+      text-align: center;
+      width: 56px;
+      height: 56px;
+      line-height: 56px;
+    }
+    .nbr {
+      @include border-radius(50%);
+      @include font-size(1.8);
+      display: inline-block;
+      background: #858585;
+      text-align: center;
+      width: 44px;
+      height: 44px;
+      line-height: 44px;
+      color: #FFF;
+    }
+    .txt {
+      @include font-size(1.4);
+      display: block;
+      margin-top: 5px;
+      color: $BlueLight;
+    }
+    .ca {
+      @include font-size(2.2);
+      text-align: center;
+      display: block;
+      margin-top: 15px;
+      span {
+        color: $Green;
+      }
+    }
+  }
+
+}
+
+.show-information {
+  border: 1px solid $BgGreyLight;
+  border-bottom: 5px solid $BgGreyLight;
+  margin-top: 40px;
+  .title {
+    background: $BlueDark;
+    color: #FFF;
+    height: 40px;
+    line-height: 40px;
+    .name {
+      @include font-size(1.8);
+      padding: 0 25px;
+    }
+    .note-reco a {
+      @include font-size(1.4);
+      background: $BlueLight;
+      height: 40px;
+      padding: 0 25px;
+      float: right;
+      color: #FFF;
+      text-decoration: none;
+      .icon {
+        @include font-size(1.0);
+        margin-right: 5px;
+      }
+      &:hover {
+        background: darken($BlueLight, 5%);
+      }
+    }
+  }
+}
+
+.show-information-content {
+  padding: 0 25px;
+  .description {
+    // background: #F2F5F5;
+    margin-left: -25px;
+    margin-right: -25px;
+    color: $GreyDark;
+    border-bottom: 5px solid #B1C2C6;
+    &.no-border {
+      border-bottom: 0;
+    }
+    div {
+      padding: 0 25px;
+    }
+    p + p {
+      margin-top: 15px;
+    }
+    ul,
+    p {
+      padding: 0 25px;
+    }
+    ul {
+      margin: 15px 0;
+    }
+    ul > li {
+      list-style: disc inside;
+      // margin-left: 15px;
+      // font-style: italic;
+    }
+    ul > li + li {
+      margin-top: 10px;
+    }
+  }
+  .bg-white {
+    @extend .clearfix;
+    padding: 25px 0;
+  }
+  .bg-grey {
+    @extend .clearfix;
+    background: $BgGreyLight;
+    padding: 25px;
+    margin: 0 -25px 0 -25px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &.dark {
+      background: darken($BgGreyLight, 5%);
+    }
+  }
+  .title-cap {
+    @include font-size(1.8);
+    text-transform: uppercase;
+    border-bottom: 1px dashed $GreyLightPlus;
+    padding-bottom: 15px;
+    color: $BlueMid;
+    margin-bottom: 15px;
+  }
+  .border-r {
+    border-right: 1px dashed $GreyLightPlus;
+  }
+}
+
+.application-content {
+  p + p {
+    margin-top: 5px;
+  }
+  ul,
+  p {
+    // padding: 0 25px;
+  }
+  ul {
+    margin: 5px 0;
+  }
+  ul > li {
+    list-style: disc inside;
+  }
+}
+
+.show-note-reco {
+  border-bottom: 10px solid darken(#ECF0F1, 20%);
+  height: 300px;
+  overflow: auto;
+  ul.note-reco {
+    margin-bottom: 20px;
+    li + li {
+      border-top: 1px dashed $GreyLightPlus;
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+  }
+  .testimonial {
+    background: #fff;
+    border-left: 2px solid $BlueLight;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    p + p {
+      margin-top: 10px;
+    }
+    p.name {
+      color: $BlueMid;
+    }
+    p.txt {
+      @include font-size(1.4);
+      @include line-height(1.8);
+      font-style: italic;
+    }
+  }
+  .note {
+    @include font-size(1.3);
+    color: $GreyDark;
+  }
+  .nbr {
+    @include font-size(1.2);
+    @include border-radius(50%);
+    background: #306C7A;
+    border: 2px solid #FFF;
+    height: 35px;
+    width: 35px;
+    line-height: 31px;
+    margin-right: 25px;
+    margin-left: 5px;
+    text-align: center;
+    display: inline-block;
+    color: #FFF;
+    font-weight: bold;
+    &.last {
+      margin-right: 0;
+    }
+  }
+}
+
+/* .secteur-domaine (profil)
+/* -------------------------------------------------- */
+
+.secteur-domaine {
+  .left {
+    float: left;
+    width: 327px;
+    padding-right: 25px;
+  }
+  .right {
+    float: right;
+    width: 320px;
+    padding-left: 25px;
+  }
+  li {
+    @extend .clearfix;
+    vertical-align: middle;
+    &:hover {
+      .nbr {
+        // @include sp-ico("bg-sec-dom-hover");
+      }
+    }
+  }
+  li + li {
+    margin-top: 15px;
+  }
+  .nbr {
+    @include sp-ico("bg-sec-dom");
+    @include font-size(1.4);
+    // @extend .transition;
+    line-height: 45px;
+    text-align: center;
+    display: inline-block;
+    color: #FFF;
+    font-weight: bold;
+    float: left;
+    margin-right: 10px;
+  }
+  .exp {
+    @include font-size(1.2);
+    display: inline-block;
+  }
+  .txt {
+    @include font-size(1.5);
+    @include line-height(1.5);
+    // text-transform: uppercase;
+    font-weight: bold;
+    color: $BlueDark;
+    display: block;
+  }
+}
+
+/* .experience-pro (profil)
+/* -------------------------------------------------- */
+
+.experience-pro {
+  table {
+    width: 100%;
+  }
+  table + table {
+    margin-top: 30px;
+  }
+  td {
+    vertical-align: top;
+    padding-right: 10px;
+  }
+
+  .entreprise-poste {
+    @include font-size(1.5);
+    background: lighten($BgGreyLight, 2%);
+    td {
+      padding: 4px 10px;
+      border: 1px solid darken($BgGreyLight, 5%);
+    }
+    .ico {
+      @include font-size(1.2);
+      @include line-height(1.8);
+      display: inline-block;
+      vertical-align: top;
+      color: $Orange;
+      margin-right: 10px;
+    }
+  }
+
+  .description-exp {
+    @include font-size(1.4);
+    @include line-height(1.8);
+    // font-style: italic;
+    div {
+      display: inline-block;
+      background: url('../images/sprites/ico/ico-apostrophe.png') 0 13px no-repeat;
+      padding-left: 45px;
+      padding-top: 15px;
+      min-height: 35px;
+    }
+    // &:before {
+    //   @include sp-ico("ico-apostrophe");
+    //   content: '';
+    //   float: left;
+    //   margin: 3px 15px 10px 0;
+    // }
+  }
+
+  .label {
+    display: inline-block;
+    white-space: nowrap;
+    width: 105px;
+  }
+  .txt {
+    display: inline-block;
+    font-weight: bold;
+    color: $BlueDark;
+    width: 450px;
+  }
+}
+
+/* .cursus-academique (profil)
+/* -------------------------------------------------- */
+
+.cursus-academique {
+  tr + tr {
+    td {
+      padding-top: 10px;
+    }
+  }
+  td {
+    vertical-align: top;
+    padding-right: 10px;
+  }
+  .diplome-ecole {
+    @include font-size(1.3);
+    .icon {
+      @include font-size(1.6);
+      display: inline-block;
+      vertical-align: middle;
+      color: $BlueLight;
+      margin-right: 10px;
+    }
+  }
+  .label {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .txt {
+    display: inline-block;
+    font-weight: bold;
+    color: $BlueDark;
+    width: 191px;
+    &.no-width {
+      width: auto;
+      color: $BlueLight;
+      font-weight: bold;
+    }
+  }
+}
+
+/* .list-items
+/* -------------------------------------------------- */
+
+.list-items {
+  > li + li {
+    margin-top: 50px;
+  }
+  > li {
+    @extend .clearfix;
+    background: #FFF;
+    margin-bottom: 30px;
+  }
+  &.option-a, &.option-b {
+    > li {
+      // margin-bottom: 70px;
+    }
+  }
+  .show-photo {
+    margin-right: 10px;
+    // width: 152px;
+    // height: 152px;
+    img {
+      border: 6px solid #FFF;
+      // width: 152px;
+      // height: 152px;
+    }
+  }
+}
+
+/* .list-items .item
+/* -------------------------------------------------- */
+
+.list-items .item {
+  position: relative;
+  float: left;
+  width: 485px;
+  height: 152px;
+  padding-top: 5px;
+  color: $GreyDark;
+  .name {
+    @include font-size(2.8);
+    margin-top: 10px;
+    margin-bottom: 3px;
+    text-transform: lowercase;
+    &:first-letter {
+      text-transform: capitalize;
+    }
+    strong {
+      @include font-size(2.4);
+      text-transform: uppercase;
+    }
+    a {
+      color: $GreyDark;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .title {
+    @include font-size(1.4);
+    @include line-height(1.6);
+    color: $GreyLight;
+    width: 280px;
+  }
+  .group-secteur-domaine {
+    @include font-size(1.2);
+    @include line-height(1.5);
+    position: absolute;
+    bottom: 10px;
+    width: 275px;
+    p + p {
+      margin-top: 5px;
+    }
+    p {
+      padding-left: 12px;
+    }
+    .ico {
+      @include font-size(1.0);
+      display: inline-block;
+      float: left;
+      margin: -1px 5px 0 -12px;
+      color: $Orange;
+    }
+  }
+  .group-button {
+    position: absolute;
+    right: 0;
+    top: 15px;
+    .btn,
+    a {
+      @include font-size(1.5);
+      display: block;
+      padding: 6px 15px;
+      margin-bottom: 8px;
+      span.icon {
+      }
+    }
+  }
+  .group-note-reco {
+    @include border-radius(0 0 4px 4px);
+    @include font-size(1.2);
+    line-height: auto;
+    color: $GreyLight;
+    background: #FFF;
+    position: absolute;
+    bottom: -30px;
+    height: 30px;
+    padding: 5px 10px;
+    span {
+      vertical-align: middle;
+    }
+    .note {
+      // line-height: auto;
+      // line-height: 12px;
+    }
+    .reco {
+      @include font-size(1.2);
+      margin-left: 15px;
+      .icon {
+        color: $BlueLight;
+        margin-right: 5px;
+      }
+      span {
+        color: $GreyLight;
+      }
+    }
+  }
+  .stars {
+    @include hide-text;
+    display: inline-block;
+    margin-right: 5px;
+    &.x0 {
+      @include sp-ico("star-x0");
+    }
+    &.x1 {
+      @include sp-ico("star-x1");
+    }
+    &.x2 {
+      @include sp-ico("star-x2");
+    }
+    &.x3 {
+      @include sp-ico("star-x3");
+    }
+    &.x4 {
+      @include sp-ico("star-x4");
+    }
+    &.x5 {
+      @include sp-ico("star-x5");
+    }
+  }
+}
+
+/* .list-items.missions
+/* -------------------------------------------------- */
+
+.list-items.missions {
+  > li + li {
+    margin-top: 20px;
+  }
+  > li {
+    margin-bottom: 0;
+  }
+  .info {
+    @include font-size(1.4);
+    @extend .clearfix;
+    border-top: 2px solid darken($BgGreyLight, 0%);
+    background: #FFF;
+    clear: both;
+    height: 35px;
+    line-height: 33px;
+    .budget {
+      float: left;
+      padding-left: 15px;
+      span {
+        vertical-align: middle;
+        font-weight: bold;
+        color: $BlueMid;
+        margin-right: 5px;
+      }
+    }
+    .link {
+      border-left: 2px solid darken($BgGreyLight, 0%);
+      // border-bottom: 2px solid darken($BgGreyLight, 10%);
+      // border-right: 2px solid darken($BgGreyLight, 10%);
+      float: right;
+      span, a {
+        display: inline-block;
+        // background: $BgGreyLight;
+        height: 35px;
+        padding: 0 15px;
+        color: $Orange;
+        &:hover {
+          color: darken($Orange, 10%)
+        }
+      }
+    }
+  }
+  &.option-a .option {
+    background: $BlueLight;
+    &.dark {
+      background: darken($BgGreyLight, 35%);
+    }
+  }
+  .option {
+    @include font-size(1.4);
+    @extend .clearfix;
+    clear: both;
+    color: #FFF;
+    height: 35px;
+    line-height: 33px;
+    padding: 0 15px;
+    .link {
+      a {
+        background: darken($BlueLight, 10%);
+        display: inline-block;
+        height: 35px;
+        padding: 0 15px;
+        margin-left: 10px;
+        color: #FFF;
+        &:hover {
+          background: darken($BlueLight, 20%);
+        }
+      }
+    }
+    .txt {
+      span {
+        @include border-radius(50%);
+        display: inline-block;
+        color: #FFF;
+        background: $Orange;
+        @include bt;
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+  .option-list {
+    @include font-size(1.4);
+    margin-top: 0px;
+    background: darken($BgGreyLight, 35%);
+    color: #FFF;
+    > li ~ li {
+      border-top: 1px solid darken($BgGreyLight, 45%);
+    }
+    > li {
+      padding: 8px 15px;
+      vertical-align: middle;
+    }
+    a {
+      color: #FFF;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .name {
+      display: inline-block;
+      width: 250px;
+      .user {
+        display: inline-block;
+        text-transform: lowercase;
+        &:first-letter {
+          text-transform: capitalize;
+        }
+        span {
+          text-transform: uppercase;
+        }
+      }
+      .icon {
+        color: darken($BgGreyLight, 50%);
+        margin-right: 5px;
+      }
+    }
+    a.link-add {
+      @include border-radius(5px);
+      background: darken($BgGreyLight, 50%);
+      float: right;
+      text-decoration: none;
+      margin-left: 25px;
+      padding: 0 10px;
+      &:hover {
+        // background: darken($BgGreyLight, 60%);
+        background: $Green;
+      }
+      span {
+        @include font-size(1.0);
+        display: inline-block;
+        margin-right: 3px;
+      }
+    }
+    a.link-view {
+      float: right;
+    }
+    a.link-delete {
+      float: right;
+      text-decoration: none;
+      margin-left: 15px;
+      margin-top: 1px;
+      &:hover {
+        color: $Red;
+      }
+    }
+  }
+}
+
+/* .list-items.missions .item
+/* -------------------------------------------------- */
+
+.list-items.missions .item {
+  width: 490px;
+  position: relative;
+  .name {
+    @include font-size(2.0);
+    margin-top: 5px;
+    text-transform: lowercase;
+    &:first-letter {
+      text-transform: capitalize;
+    }
+  }
+  .title {
+    width: 485px;
+  }
+  .group-secteur-domaine {
+    bottom: 5px;
+  }
+  .group-button {
+    position: absolute;
+    top: 112px;
+    width: 200px;
+    .btn {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,87 @@
+<% content_for :title do %>Contacter<% end %>
+
+<% content_for :meta do %>
+<meta name="description" content="Contacter l’équipe de LouerUnSenior.com.">
+<% end %>
+
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        MainApp.form();
+    });
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li>Contact</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top">Nous <strong>contacter</strong></h2>
+
+  <div class="post">
+    <p>Toute l'équipe de <strong>LouerUnSenior.com</strong> est à votre dispostion pour répondre à la moindre de vos questions. <br>
+    <strong>LouerUnSenior.com</strong> - Seniors Entrepreneurs SAS, 13 Rue de Marivaux, 75002 Paris.</p>
+  </div>
+
+  <br>
+
+  <div class="btn-group m-reset">
+    <a href="mailto:&#099;&#111;&#110;&#116;&#097;&#099;&#116;&#064;&#108;&#111;&#117;&#101;&#114;&#117;&#110;&#115;&#101;&#110;&#105;&#111;&#114;&#046;&#099;&#111;&#109;?subject=[LouerUnSenior] Contact" class="btn green"><span data-icon="r" class="icon"></span> Nous contacter par email</a> <span class="btn blue">Tél. <strong>01 85 08 09 39</strong></span>
+  </div>
+
+  <% if flash[:notice] == "" %>
+  <div class="msg-action color-dark">Merci de nous avoir contacté, nous vous répondrons dans les plus brefs délais.</div>
+  <%= flash[:notice] %>
+  <% end %>
+
+    <%= form_tag "", class: "form" do%>
+
+    <div class="bloc grey">
+
+      <fieldset>
+
+        <div class="col x2 no-margin">
+          <span class="row x-medium with-margin ico-user">
+            <label for="A REMPLIR for > id" class="text">Votre nom <span class="mandatory">*</span></label>
+            <input type="text" class="text validate[required]" name="name">
+          </span>
+          <span class="row x-large-option ico-email">
+            <label for="A REMPLIR for > id" class="text">Votre email <span class="mandatory">*</span></label>
+            <input type="text" class="text validate[required,custom[email]]" name="email">
+          </span>
+        </div>
+        <!-- .col -->
+
+        <div class="col x1 no-margin">
+          <label for="A REMPLIR for > id" class="text">Sujet de votre message <span class="mandatory">*</span></label>
+          <span class="row x-large">
+            <input type="text" class="text" name="subject">
+          </span>
+        </div>
+        <!-- .col -->
+
+        <div class="col x1 no-margin">
+          <label for="A REMPLIR for > id" class="text">Votre message <span class="mandatory">*</span></label>
+          <span class="row x-large">
+            <textarea name="content" id="" class="text large validate[required]"></textarea>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <button type="submit" name= "validate" class="btn green" title="Envoyer votre message">Envoyer votre message</button>
+
+    <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

@@ -1,0 +1,54 @@
+<% content_for :js do %>
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      MainApp.form();
+    });
+
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li>Nouveau mot de passe</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top"> Veuillez entrer <strong>votre nouveau mot de passe</strong></h2>
+
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, class: "form" }) do |f| %>
+
+    <%= devise_error_messages_password %>
+
+    <div class="bloc grey">
+
+      <fieldset>
+
+        <div class="col x2 no-margin">
+          <span class="row x-medium with-margin ico-password">
+            <%= f.hidden_field :reset_password_token %>
+            <%= f.label :password, "Nouveau mot de passe", class: 'text' %>
+            <%= f.password_field :password, :autofocus => true, class: 'text validate[required]' %>
+          </span>
+          <span class="row x-medium with-margin ico-password">
+            <%= f.label :password_confirmation, "Confirmer le mot de passe", class: 'text' %>
+            <%= f.password_field :password_confirmation, class: 'text validate[required]' %>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <button type="submit" class="btn green" title="Changer mon mot de passe">Changer mon mot de passe</button>
+
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

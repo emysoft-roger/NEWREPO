@@ -1,0 +1,23 @@
+<p>Bonjour <strong><%= @mission.entreprise.name %></strong>,</p>
+
+<p>L'expert <strong><%= link_to "#{@expert.first_name} #{@expert.last_name}", profile_url(@expert) %></strong> a confirmé ça participation à la mission <strong><%= link_to @mission.name, mission_url(@mission) %></strong>.</p>
+
+<p>Veuillez trouvez ci-dessous les coordonnées du compte de séquestre LouerUnSenior.com pour le règlement de la prestation :</p>
+
+<p>
+  Objet du virement : mission ID <%= @mission.id %> <br>
+  Titulaire du compte : Seniors Entrepreneurs, 13 rue de Marivaux, 75002 Paris <br>
+  Domiciliation : PARIS ELYSEES ENTREPRISE (03392) <br>
+  RIB : 30003 03392 00020360602 58 <br>
+  IBAN : FR76 3000 3033 9200 0203 6060 258 <br>
+  BIC : SOGEFRPP
+</p>
+
+<p>Pour toute information sur le réglement, vous pouvez nous contacter à tous moment au 09 70 40 80 72 ou par email : missions@louerunsenior.com.</p>
+
+<p>--------------------</p>
+
+<p>L'équipe de <a href="http://louerunsenior.com">LouerUnSenior.com</a> reste à votre disposition pour répondre à toutes vos questions. <br>
+Tél : 09 70 40 80 72 - Email : contact@louerunsenior.com  <br>
+A très bientôt sur <a href="http://louerunsenior.com">LouerUnSenior.com</a> <br>
+Twitter : @louerunsenior - Linkedin : louerunsenior.com</p>

@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: daf49vcz5
+  api_key: '885442993194449'
+  api_secret: KPjYsMMMVP4kgr3iK0T2r9MO_aE
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: daf49vcz5
+  api_key: '885442993194449'
+  api_secret: KPjYsMMMVP4kgr3iK0T2r9MO_aE
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: daf49vcz5
+  api_key: '885442993194449'
+  api_secret: KPjYsMMMVP4kgr3iK0T2r9MO_aE
+  enhance_image_tag: true
+  static_image_support: false

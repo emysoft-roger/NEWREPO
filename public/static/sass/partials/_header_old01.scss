@@ -1,0 +1,171 @@
+/******************************************************/
+/* HEADER
+/******************************************************/
+/* -------------------------------------------------- */
+/* .logo
+/* .nav-wrap
+/* .nav-top
+/* .nav-primary
+/* .nav-secondary
+/* .form-search
+/* -------------------------------------------------- */
+/* -------------------------------------------------- */
+
+#header {
+  height: 190px;
+}
+
+/* .logo
+/* -------------------------------------------------- */
+
+.logo a {
+  @include absolute-left(25px, 0);
+  @include sp-logo("logo-lus");
+  @include hide;
+  display: inline-block;
+}
+
+/* .nav-wrap
+/* -------------------------------------------------- */
+
+.nav-wrap {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  background: $BlueMid;
+  height: 57px;
+  &:after {
+    content: '';
+    background: url('../images/bg-shad.png') 0 0 repeat-x;
+    position: absolute;
+    color: #000;
+    bottom: -11px;
+    z-index: 9999;
+    left: 0;
+    right: 0;
+    height: 12px;
+  }
+}
+
+/* .nav-top
+/* -------------------------------------------------- */
+
+.nav-top {
+  @include absolute-right(25px, 0);
+  @include font-size(0);
+  text-align: right;
+  > li {
+    @include font-size(1.4);
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+  }
+  a {
+    color: $GreyLight;
+    text-decoration: none;
+    vertical-align: middle;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* .nav-primary
+/* -------------------------------------------------- */
+
+.nav-primary {
+  @include font-size(0);
+  text-transform: uppercase;
+  float: left;
+  > li {
+    @include font-size(1.3);
+    display: inline-block;
+    border-right: 1px solid $BlueDarkPlus;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+  // Icon
+  > li:first-child a {
+    @include font-size(1.8);
+    color: $BlueDarkPlus;
+    padding-left: 0;
+    &:hover {
+      color: #FFF;
+      background: none;
+    }
+  }
+  a {
+    @extend .transition;
+    display: inline-block;
+    color: #FFF;
+    text-decoration: none;
+    padding: 17px 15px;
+    vertical-align: middle;
+    &:hover {
+      background: $BlueLight;
+    }
+  }
+}
+
+/* .nav-secondary
+/* -------------------------------------------------- */
+
+.nav-secondary {
+  @include font-size(0);
+  float: right;
+  > li {
+    @include font-size(1.3);
+    display: inline-block;
+    margin-left: 15px;
+    margin-top: 14px;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+  a {
+    @extend .transition;
+    @include border-radius(4px);
+    background: darken($BlueMid, 10%);
+    padding: 3px 15px;
+    display: inline-block;
+    color: #FFF;
+    text-decoration: none;
+    vertical-align: middle;
+    &:hover {
+      background: darken($BlueMid, 15%);
+    }
+  }
+}
+
+/* .form-search
+/* -------------------------------------------------- */
+
+.form-search {
+  @include absolute-right(12px, 0);
+  @include font-size(1.2);
+  width: 300px;
+  text-align: right;
+  input {
+    border: 1px solid $BlueMid !important;
+    font-style: italic;
+    width: 250px;
+    &:focus {
+      border: 1px solid $BlueDarkPlus !important;
+      font-style: normal;
+      ~ button {
+        color: #FFF;
+      }
+    }
+  }
+  button {
+    @include font-size(1.6);
+    font-family: "lus-fonts" !important;
+    background: none;
+    color: $BlueDarkPlus;
+    &:hover {
+      color: #FFF;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+<% content_for :js do %>
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      MainApp.form();
+    });
+
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li>Mot de passe oublié</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top"> Veuillez entrer <strong>votre email</strong> pour récupérer <strong>votre mot de passe</strong></h2>
+
+  <p><strong>Pour réinitialiser votre mot de passe, veuillez :</strong></p>
+
+  <br>
+
+  <p>Entrer votre adresse email et cliquer sur le bouton « <strong>Envoyer les instructions par email</strong> ». Ouvrir l'email qui vous a été envoyé et cliquer sur lien de de réinitialisation « <strong>Changer mon mot de passe</strong> ».</p>
+
+  <br>
+
+  <p>Attention, pour des raisons de sécurité, le lien est valable que pour quelques heures.</p>
+
+
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, class: "form" }) do |f| %>
+
+    <br>
+
+    <%= devise_error_messages! %>
+
+    <div class="bloc grey">
+
+      <fieldset>
+
+        <div class="col x2 no-margin">
+          <span class="row x-medium with-margin ico-email">
+            <label for="user_email" class="text">L'email de votre compte <span class="mandatory">*</span></label>
+            <%= f.email_field :email, class: 'text validate[required,custom[email]]' %>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <button type="submit" class="btn green" title="Envoyer">Envoyer les instructions par email</button>
+
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

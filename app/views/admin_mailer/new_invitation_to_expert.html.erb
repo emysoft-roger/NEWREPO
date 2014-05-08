@@ -1,0 +1,12 @@
+<p>Bonjour <%= @expert.first_name %> <%= @expert.last_name %>,</p>
+
+<p><strong>LouerUnSenior.com</strong> vous informe qu'après consultation de votre profil, une entreprise s'est révélée intéressée par votre expertise et vous invite à postuler à la mission <strong><%= link_to @mission.name, mission_url(@mission) %></strong>.</p>
+
+<p>Vous pouvez répondre à la demande d'invitation en vous connectant sur votre tableau de bord : <%= link_to "Tableau de bord", dashboard_url(@expert) %></p>
+
+<p>--------------------</p>
+
+<p>L'équipe de <a href="http://louerunsenior.com">LouerUnSenior.com</a> reste à votre disposition pour répondre à toutes vos questions. <br>
+Tél : 09 70 40 80 72 - Email : contact@louerunsenior.com  <br>
+A très bientôt sur <a href="http://louerunsenior.com">LouerUnSenior.com</a> <br>
+Twitter : @louerunsenior - Linkedin : louerunsenior.com</p>

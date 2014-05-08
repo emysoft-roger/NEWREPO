@@ -1,0 +1,115 @@
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        MainApp.form();
+    });
+  </script>
+<% end %>
+
+ <div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Missions", missions_path, title: "Missions"%></li>
+    <li>Déposer une mission</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <h2 class="title-top">Déposer une <strong>mission</strong></h2>
+
+  <p>Les informations à remplir ci-dessous apparaitront dans la fiche publique de votre mission.<br> N'oubliez pas de la rendre clair, percutant et synthétique.</p>
+
+  <%= form_for @mission, url: missions_path, method: :post, html: {class: "form"} do |f| %>
+
+    <% if @mission.id %>
+      <%= f.hidden_field :id %>
+    <% end %>
+
+    <div class="bloc grey">
+
+      <fieldset>
+
+        <legend><span class="nbr">1</span> Description de la <strong>mission</strong> <span class="mandatory">*</span></legend>
+
+        <div class="col x1">
+          <label for="mission_name" class="text">Titre de la mission</label>
+          <span class="row x-large">
+            <%= f.text_field :name, placeholder: "Courte phrase décrievement brièvement l'objet de votre mission. (100 caractères)", class: "text validate[required,minSize[2],maxSize[100]]"%>
+          </span>
+        </div>
+        <!-- .col -->
+
+        <div class="col x3">
+
+          <span class="row x-medium">
+            <label for="budget" class="text">Budget</label>
+            <%= select_tag "mission[budget]", options_for_select(list_budget, mapping_budget(@mission, 1)), {:class => 'text validate[required]', :id => "budget", :prompt => "Sélectionner"} %>
+          </span>
+
+          <span class="row x-medium">
+            <label for="duree" class="text">Durée du projet</label>
+            <%= select_tag "mission[duree]", options_for_select(list_duree, mapping_duree(@mission, 1)), {:class => 'text validate[required]', :id => "duree", :prompt => "Sélectionner"} %>
+          </span>
+
+          <span class="row x-medium">
+            <label for="mission_town" class="text">Lieu de la mission</label>
+            <%= f.text_field :town, placeholder: "Veuillez insérer une ville", class: "text validate[required,minSize[2],maxSize[25]]"%>
+          </span>
+
+        </div>
+        <!-- .col -->
+
+        <div class="col x1">
+          <label for="mission_description" class="text">Résumé de la mission</label>
+          <p class="info-txt ml0">Decriptif détaillé de la mission à destination des pontentiels prestataires.<br> Coordonnées et nom de votre entreprise à ne pas indiquer ici.</p>
+          <span class="row x-large">
+            <%= f.text_area :description, placeholder: "Decriptif détaillé de la mission à destination des pontentiels prestataires. Coordonnées et nom de votre entreprise à ne pas indiquer ici.", class: "text tiny-mce large" %>
+          </span>
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+      <hr>
+
+      <fieldset>
+
+        <legend><span class="nbr">2</span> Détails de la <strong>mission</strong> <span class="mandatory">*</span></legend>
+
+        <div class="col x3">
+
+          <span class="row x-medium">
+            <label for="mission_category_id" class="text">Catégorie</label>
+            <%= f.select :category_id, options_from_collection_for_select(@categories, "id", "name", @mission.category_id), {:include_blank => "Sélectionner"}, {:class => 'text validate[required]'} %>
+          </span>
+
+          <span class="row x-medium">
+            <label for="secteur" class="text">Secteur d'activité</label>
+            <%= f.select :secteur_id, options_from_collection_for_select(@secteurs, "id", "name", @mission.secteur_id), {:include_blank => "Sélectionner"}, {:class => 'text validate[required]', :id => "secteur"} %>
+          </span>
+
+          <span class="row x-medium">
+            <label for="competences" class="text">Domaine de compétence</label>
+            <%= f.select :competence_id, options_from_collection_for_select(@competences, "id", "name", @mission.competence_id), {:include_blank => "Sélectionner"}, {:class => 'text validate[required]', :id => "competences"} %>
+          </span>
+
+        </div>
+        <!-- .col -->
+
+      </fieldset>
+      <!-- .fieldset -->
+
+      <br>
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <button type="submit" class="btn green" title="Déposer ma mission">Déposer ma mission</button>
+    <%= link_to "Annuler", entreprise_dashboard_path(current_user.entreprise), title: "Annuler", class: "btn simple" %>
+
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

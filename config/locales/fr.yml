@@ -1,0 +1,39 @@
+fr:
+  views:
+    pagination:
+      first: "&laquo; Première"
+      last: "Dernière &raquo;"
+      previous: "&lsaquo; Précédente"
+      next: "Suivante &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Aucun(e) %{entry_name} trouvé(e)s"
+          one: "Affichage de <b>1</b> %{entry_name}"
+          other: "Affichage des <b>%{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first}</b> à <b>%{last}</b> affiché(e)s sur <b>%{total}</b> au total"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "Cet e-mail est déjà utilisé, veuillez renseigner une nouvelle adresse."
+              blank: "Merci de renseigner un email."
+            password:
+              blank: "Le mot de passe est vide."
+              too_short: "Le mot de passe est trop court."
+            password_confirmation:
+              confirmation: "Les mots de passes ne sont pas identiques."
+            reset_password_token:
+              invalid: "Vous avez fait une demande plus récente pour modifier votre mot de passe, veuillez consulter votre email."
+  date:
+    formats:
+      long: "%d/%m/%Y"
+  time:
+    formats:
+      long: "%Hh%M %d/%m/%Y"

@@ -1,0 +1,204 @@
+/******************************************************/
+/* LAYOUT
+/******************************************************/
+/* -------------------------------------------------- */
+/* #html
+/* #body
+/* #wrapper
+/* #content
+/* #left
+/* #right
+/* #main
+/* #breadcrumb
+/* #hr
+/* -------------------------------------------------- */
+
+/* -------------------------------------------------- */
+/*  #html
+/* -------------------------------------------------- */
+
+html {
+  font-size: 62.5%;
+  @media (orientation: landscape) and (max-device-width: 768px) {
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* #body
+/* -------------------------------------------------- */
+
+body {
+  @include font-size(1.6);
+  @include line-height(2.2);
+  border-top: 2px solid $BlueLight;
+  font-family: $arial;
+  color: $ColorBody;
+  // -webkit-backface-visibility: hidden;
+  a {
+    text-decoration: underline;
+  }
+}
+
+/* #wrapper
+/* -------------------------------------------------- */
+
+#wrapper {
+  .inside {
+    @include container;
+    position: relative;
+  }
+}
+
+/* #content
+/* -------------------------------------------------- */
+
+#content {
+  min-height: 400px;
+  // Les titres en haut de page
+  .title-top {
+    @include font-size(2.4);
+    @include line-height(2.7);
+    color: $GreyDark;
+    margin-bottom: 30px;
+  }
+  // Titre pour la home
+  .title-center {
+    @include font-size(2.7);
+    @include line-height(3.0);
+    text-align: center;
+    font-weight: bold;
+    color: $BlueDark;
+    span {
+      @include font-size(2.0);
+      @include line-height(2.8);
+      font-weight: normal;
+      display: block;
+      color: $BlueMid;
+      a {
+        color: $BlueDarkPlus;
+        font-weight: normal;
+        &:hover {
+          color: $Green;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  // Titre page
+  .title-medium {
+    @include font-size(1.8);
+    @include line-height(2.4);
+    color: $GreyDark;
+    margin-bottom: -15px;
+    strong {
+      font-weight: bold;
+    }
+  }
+  // Titre filter
+  .title-bg {
+    @include font-size(1.5);
+    background: $BlueDarkPlus;
+    color: #FFF;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    padding: 5px 15px;
+  }
+}
+
+/* #left
+/* -------------------------------------------------- */
+
+#left {
+  width: 240px;
+  float: left;
+  .btn {
+    width: 100%;
+  }
+}
+
+/* #right
+/* -------------------------------------------------- */
+
+#right {
+  width: 700px;
+  float: right;
+}
+
+/* #main
+/* -------------------------------------------------- */
+
+#main {
+  &.wd-preview {
+    float: none;
+    width: 790px;
+    margin: 0 auto;
+    border: 1px solid #E3E3E3;
+    padding: 40px;
+  }
+}
+
+/* #breadcrumb
+/* -------------------------------------------------- */
+
+#breadcrumb {
+  @include font-size(0);
+  color: $GreyDark;
+  border-bottom: 1px dashed $GreyLightPlus;
+  margin-bottom: 20px;
+  > li {
+    @include font-size(1.2);
+    display: inline-block;
+    &:after {
+      content: '>';
+      margin: 0 5px;
+      color: $GreyLight;
+    }
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+  a {
+    color: $GreyLight;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* #error_explanation
+/* -------------------------------------------------- */
+
+#error_explanation {
+  h2 {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: $Red;
+  }
+  li {
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+}
+
+/* #hr
+/* -------------------------------------------------- */
+
+hr {
+  @extend .clearfix;
+  clear: both;
+  border-top: 0;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+  margin: 15px auto;
+  background: none;
+  height: 1px;
+  min-height: 0;
+  &.dashed {
+    border-top: 1px dashed $GreyLightPlus;
+    margin: 25px auto;
+  }
+}

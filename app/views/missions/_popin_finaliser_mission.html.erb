@@ -1,0 +1,61 @@
+<div class="inside-popin">
+
+  <p class="head">Veuillez <strong>noter</strong> et laisser une <strong>recommandation</strong> à l'expert</p>
+
+  <%= form_for Note.new, html: {class: "form"} do |f| %>
+
+    <div class="clearfix">
+
+        <div class="bloc grey m-reset">
+          <%= f.hidden_field :expert_id, {value: mission.expert.id} %>
+          <%= f.hidden_field :mission_id, {value: mission.id} %>
+
+          <fieldset>
+
+            <div class="col x3 no-margin">
+              <span class="row x-medium">
+                <label for="A REMPLIR for > id" class="text">Qualité du travail délivrée <span class="mandatory">*</span></label>
+                <%= f.select :qualite, options_for_select((1..5).to_a), {include_blank: "Sélectionner"}, {class: "text tiny validate[required]"} %>
+              </span>
+              <span class="row x-tiny">
+                <label for="A REMPLIR for > id" class="text">Ponctualité <span class="mandatory">*</span></label>
+                <%= f.select :ponctualite, options_for_select((1..5).to_a), {include_blank: "Sélectionner"}, {class: "text tiny validate[required]"} %>
+              </span>
+              <span class="row x-tiny">
+                <label for="A REMPLIR for > id" class="text">Disponibilité <span class="mandatory">*</span></label>
+                <%= f.select :disponibilite, options_for_select((1..5).to_a), {include_blank: "Sélectionner"}, {class: "text tiny validate[required]"} %>
+              </span>
+              <span class="row x-tiny">
+                <label for="A REMPLIR for > id" class="text">Courtoisie <span class="mandatory">*</span></label>
+                <%= f.select :courtoisie, options_for_select((1..5).to_a), {include_blank: "Sélectionner"}, {class: "text tiny validate[required]"} %>
+              </span>
+            </div>
+            <!-- .col -->
+
+            <div class="col x1 no-margin">
+              <label for="A REMPLIR for > id" class="text">Recommandriez-vous cet expert ?</label>
+              <span class="row x-large">
+                <%= f.text_area :description, class: "text no-resize", placeholder: "Veuillez laisser en quelques lignes votre appréciation sur l'expert." %>
+              </span>
+            </div>
+            <!-- .col -->
+
+          </fieldset>
+          <!-- .fieldset -->
+
+        </div>
+        <!-- .bloc.grey -->
+
+    </div>
+    <!-- .clearfix -->
+
+    <div class="button-group center">
+      <button type="submit" class="btn green" title="Valider les notes et la recommandation"><span data-icon="l" class="icon"></span> Valider les notes et la recommandation</button>
+      <a href="" class="btn blue popin-dash" onclick='parent.$.colorbox.close(); return false;' title="Fermer cette fenêtre"><span data-icon="h" class="icon"></span> Fermer cette fenêtre</a>
+    </div>
+
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside-popin-->

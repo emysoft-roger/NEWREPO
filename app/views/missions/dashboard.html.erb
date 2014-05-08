@@ -1,0 +1,368 @@
+<% content_for :title do %>Tableau de bord<% end %>
+
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        MainApp.form();
+    });
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Missions", missions_path, title: "Missions"%></li>
+    <li>Mon compte</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <div class="show-header dashboard">
+    <div class="show-photo" style="display: none;">
+      <img src="/static/images/categories/mission-cat-03.png" alt="Photo">
+    </div>
+    <!-- .show-photo -->
+    <div class="show-user entreprise">
+      <p class="name"><%= @entreprise.name %></p>
+      <%= link_to new_mission_path, class: "btn green", title: "Déposer une nouvelle mission" do %>
+        <span data-icon="g" class="icon"></span> Déposer une nouvelle mission
+      <% end %>
+      <div class="info">
+        <ul>
+          <li><span class="nbr-wrap"><span class="nbr"><%= @actives_mission.size %></span></span><span class="txt">Missions en cours</span></li>
+          <li><span class="nbr-wrap"><span class="nbr"><%= @done_mission.size %></span></span><span class="txt">Missions terminées</span></li>
+        </ul>
+      </div>
+    </div>
+    <!-- .show-user -->
+  </div>
+  <!-- .show-header .dashboard-->
+
+  <div id="left">
+    <%= link_to experts_path, class: "btn blue", title: "Rechercher un expert" do %>
+      Rechercher un expert <span class="">par secteurs et compétences</span>
+    <% end %>
+    <!-- <a href="" title="Créer une alerte" class="link-simple orange">Créer une alerte</a> -->
+    <br><br>
+    <h3 class="title-medium">Contactez-nous</h3>
+    <div class="bloc grey tiny">
+      <div class="inside-white txt">
+        <p>Une question sur votre compte, un renseignement ? N'hésitez-pas à nous contacter.</p>
+        <span data-icon="j" class="icon"></span> <%= link_to "Contactez-nous", contact_path, title: "Contactez-nous", class: "link-simple orange" %>
+      </div>
+    </div>
+  </div>
+  <!-- #left -->
+
+  <div id="right">
+
+    <h2 class="title-medium">Action <strong>restantes à effectuer</strong></h2>
+
+    <div class="bloc grey border">
+      <% if @candidatures.size > 0 %>
+      <ul class="links">
+        <li>Vous avez une une ou plusieurs candidature sur vos missions, veuillez sélectionner un expert.</li>
+      </ul>
+      <% end %>
+
+      <% if @actives_mission.size > 0 %>
+      <ul class="links">
+        <li>Vous avez au moins une mission en cours, veuillez finaliser la misison quand celle-ci sera terminée.</li>
+      </ul>
+      <% end %>
+
+      <% if @actives_mission.size == 0 and @candidatures.size == 0 %>
+      <ul class="links">
+        <li>Vous n'avez pas d'actions à effectuer.</li>
+      </ul>
+      <% end %>
+    </div>
+    <!-- .bloc.grey -->
+
+    <h2 class="title-medium">Missions <strong>en attente de validation</strong></h2>
+
+    <div class="bloc grey">
+
+      <% if @pending_missions_admin.size == 0 %>
+      <ul class="links">
+        <li>Aucune mission en attente de validation.</li>
+      </ul>
+      <% else %>
+
+      <ul class="list-items missions option-a">
+
+        <% @pending_missions_admin.each do |mission| %>
+        <li>
+          <!-- .popin -->
+          <div class="show-photo">
+            <%= link_to mission, title: "Voir la mission" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+          <div class="item">
+            <p class="name">
+              <%= link_to mission.name, mission, title: "Voir la mission" %>
+            </p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+          </div>
+          <!-- .item -->
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %></span>
+            <span class="link">
+              <%= link_to "Voir la mission", mission, title: "Voir la mission" %>
+            </span>
+          </div>
+          <!-- .info -->
+          <div class="option dark">
+            <span class="txt"><strong> Mission en attention de validation de la part de LouerUnSenior</strong></span>
+          </div>
+          <!-- .option -->
+        </li>
+        <% end %>
+
+      </ul>
+      <% end %>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+
+    <h2 class="title-medium">Missions en <strong>attente d'experts</strong></h2>
+
+    <div class="bloc grey">
+
+      <% if @pending_missions.empty? %>
+      <ul class="links">
+        <li>Aucune mission en attente.</li>
+      </ul>
+      <% else %>
+
+      <ul class="list-items missions option-a">
+        <% @pending_missions.each do |mission| %>
+
+        <li>
+
+          <div class="show-photo">
+            <%= link_to mission, title: "Voir la mission" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+
+          <div class="item">
+            <p class="name"><%= link_to mission.name, mission, title: "Voir la mission" %></p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+            <div class="group-button">
+
+            <% if mission.pending_expert %>
+              <span class="btn dark" title="Réponse en attente"><span data-icon="m" class="icon"></span> Réponse en attente</span>
+            <% else %>
+              <span class="btn blue" title="En attente d'experts"><span data-icon="m" class="icon"></span> En attente d'experts</span>
+            <% end %>
+
+            </div>
+          </div>
+          <!-- .item -->
+
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %>
+            </span>
+            <span class="link">
+            <% if mission.pending_expert %>
+              <%= link_to "Voir la mission", mission, title: "Voir la mission" %>
+            <% else %>
+              <%= link_to "Effacer la mission", mission, method: :delete, confirm: 'Souhaitez-vous effacer cette mission ?', title: "Effacer la mission"%>
+            <% end %>
+            </span>
+          </div>
+          <!-- .info -->
+
+          <% klass = (mission.pending_expert) ? "dark" : "" %>
+
+          <div class="option <%= klass %>">
+            <% if mission.pending_expert %>
+              <span class="txt"><strong> En attente de la confirmation de l'expert : <%= mission.expert.first_name %> <%= mission.expert.last_name %></strong></span>
+            <% else %>
+              <% if mission.applications.pendings.size == 0 %>
+                <span class="txt"><strong>Vous n'avez pour l'instant aucune candidature pour cette mission</strong></span>
+              <% else %>
+                  <span class="txt"><strong> Des experts ont postulés à cette mission</strong></span>
+                  <span class="link"><a href="#" class="js-toggle" data-target="list-<%= mission.id %>" title="Cacher les candidatures" data-text-open="Cacher les candidatures" data-text-close="Voir les candidatures (<%= mission.applications.pendings.size %>)">Voir les candidatures (<%= mission.applications.pendings.size %>)</a></span>
+              <% end %>
+            <% end %>
+          </div>
+          <!-- .option -->
+
+          <% if mission.applications.pendings.size > 0 %>
+          <ul class="option-list" id="list-<%= mission.id %>" style="display:none;">
+            <% mission.applications.pendings.each do |application| %>
+
+            <div style="display:none;">
+              <div id="popin-expert-info-<%= application.expert_id %>">
+                <%= render partial: "popin_expert_info", locals: {application: application} %>
+              </div>
+
+              <div id="popin-expert-recruter-<%= application.expert_id %>">
+                <%= render partial: "popin_expert_recruter", locals: {application: application} %>
+              </div>
+            </div>
+
+            <li>
+              <span class="name">
+                <span data-icon="b" class="icon"></span>
+                <span class="user">
+                  <%= link_to profile_path(application.expert), title: "Voir son profil" do %>
+                     <%= application.expert.first_name %> <span><%= application.expert.first_letter %>.</span>
+                  <% end %>
+                </span>
+              </span>
+              <!-- <a href="" title="Effacer l'expert" class="link-delete"><span data-icon="h" class="icon"></span></a> -->
+              <a href="#popin-expert-recruter-<%= application.expert_id %>" title="Recruter" class="link-add popin-inline"><span data-icon="l" class="icon"></span> Recruter</a>
+              <a href="#popin-expert-info-<%= application.expert_id %>" title="Candidature & informations" class="link-view popin-inline">Candidature & informations</a>
+            </li>
+            <% end %>
+          </ul>
+          <!-- .option-list -->
+          <% end %>
+
+        </li>
+        <% end %>
+
+      </ul>
+      <!-- .list-items -->
+      <% end %>
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <h2 class="title-medium">Missions <strong>en cours</strong></h2>
+
+    <div class="bloc grey">
+
+      <% if @actives_mission.empty? %>
+      <ul class="links">
+        <li>Aucune mission en cours.</li>
+      </ul>
+      <% else %>
+
+      <ul class="list-items missions option-a">
+
+        <% @actives_mission.each do |mission| %>
+        <li>
+          <div class="display-none">
+            <div id="popin-finaliser-mission">
+              <%= render partial: "popin_finaliser_mission.html", locals: {mission: mission} %>
+            </div>
+          </div>
+          <!-- .popin -->
+          <div class="show-photo">
+            <%= link_to mission, title: "Voir la mission" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+          <div class="item">
+            <p class="name">
+              <%= link_to mission.name, mission, title: "Voir la mission" %>
+            </p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> <%= mission.secteur.name %></p>
+              <p><span class="ico">■</span> <%= mission.competence.name %></p>
+            </div>
+            <div class="group-button">
+              <a href="#popin-finaliser-mission" class="btn orange popin-inline" title="Finaliser la mission"><span data-icon="n" class="icon"></span> Finaliser la mission</a>
+            </div>
+          </div>
+          <!-- .item -->
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %></span>
+            <span class="link">
+              <%= link_to "Voir la mission", mission, title: "Voir la mission" %>
+            </span>
+          </div>
+          <!-- .info -->
+          <div class="option dark">
+            <span class="txt"><strong> Mission en cours avec l'expert : <%= mission.expert.first_name %> <%= mission.expert.last_name %></strong></span>
+          </div>
+          <!-- .option -->
+        </li>
+        <% end %>
+
+      </ul>
+      <% end %>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <h2 class="title-medium">Missions <strong>terminées</strong></h2>
+
+    <div class="bloc grey">
+
+      <% if @done_mission.empty? %>
+      <ul class="links">
+        <li>Aucune mission terminée.</li>
+      </ul>
+      <% else %>
+
+      <ul class="list-items missions option-a">
+
+        <% @done_mission.each do |mission| %>
+        <li>
+          <div class="show-photo">
+            <%= link_to mission, title: "Voir la mission" do %>
+              <img src="/static/images/categories/mission-cat-0<%= mission.category_id %>.png" alt="Photo">
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+          <div class="item">
+            <p class="name">
+              <%= link_to mission.name, mission, title: "Voir la mission" %>
+            </p>
+            <p class="title"><%= truncate Sanitize.clean(mission.description).html_safe, length: 200 %></p>
+            <div class="group-secteur-domaine">
+              <p><span class="ico">■</span> Informatique, Télécom, Internet - Immobilier</p>
+              <p><span class="ico">■</span> Finance, Comptabilité, Économie</p>
+            </div>
+            <div class="group-button">
+              <span class="btn grey" title="Mission terminée"><span data-icon="l" class="icon"></span> Mission terminée</span>
+            </div>
+          </div>
+          <!-- .item -->
+          <div class="info">
+            <span class="budget"><span data-icon="p" class="icon"></span> <%= mapping_budget(mission) %></span>
+            <span class="link">
+              <%= link_to "Voir la mission", mission, title: "Voir la mission" %>
+            </span>
+          </div>
+          <!-- .info -->
+          <div class="option dark">
+            <span class="txt"><strong> Mission terminée avec l'expert : <%= mission.expert.first_name %> <%= mission.expert.last_name %></strong></span>
+          </div>
+          <!-- .option -->
+        </li>
+        <% end %>
+
+      </ul>
+      <% end %>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+  </div>
+  <!-- #right -->
+
+</div>
+<!-- .inside -->

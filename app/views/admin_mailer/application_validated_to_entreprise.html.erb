@@ -1,0 +1,22 @@
+<p>Bonjour <strong><%= @mission.entreprise.name %></strong>,</p>
+
+<p>Vous avez sélectionné l'expert <strong><%= link_to "#{@expert.first_name} #{@expert.last_name}", profile_url(@expert) %></strong> pour réaliser la mission <strong><%= link_to @mission.name, mission_url(@mission) %></strong>.</p>
+
+<p>Que va-t-il se passer ?</p>
+
+<p>
+  1) L’expert confirme sa participation à la mission et vous envoi son contrat de prestation ainsi que les modalités de règlement. <br>
+  2) Vous réglez le montant de la prestation au travers du compte de séquestre LouerUnSenior.com. <br>
+  3) Après vérification, LouerUnSenior.com reverse les fonds directement au prestataire.
+</p>
+
+<p>Pour s’assurer contre tous risques de fraude et blanchiment, LouerUnSenior.com joue le rôle d'intermédiaire de paiement.</p>
+
+<p>Pour votre sécurité, Veillez à ne jamais directement régler le prestataire.</p>
+
+<p>--------------------</p>
+
+<p>L'équipe de <a href="http://louerunsenior.com">LouerUnSenior.com</a> reste à votre disposition pour répondre à toutes vos questions. <br>
+Tél : 09 70 40 80 72 - Email : contact@louerunsenior.com  <br>
+A très bientôt sur <a href="http://louerunsenior.com">LouerUnSenior.com</a> <br>
+Twitter : @louerunsenior - Linkedin : louerunsenior.com</p>

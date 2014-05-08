@@ -1,0 +1,261 @@
+<% content_for :title do %>Profil de <%= @expert.first_name %> <%= @expert.first_letter %>.<% end %>
+
+<% content_for :meta do %>
+
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Experts", experts_path, title: "Experts" %></li>
+    <li>Profil de <%= @expert.first_name %> <%= @expert.first_letter %>.</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <div id="left">
+    <%
+    if current_expert
+      link = dashboard_path(current_expert.id)
+    else
+      link = new_expert_path
+    end
+    %>
+
+    <%= link_to link, class: "btn blue ico-mission", title: "Experts indépendants - Inscrivez-vous" do %>
+      Experts indépendants <span>inscrivez-vous</span>
+    <% end %>
+    <!-- <a href="" title="Créer une alerte" class="link-simple orange">Créer une alerte</a> -->
+    <br><br>
+    <h3 class="title-medium">Contactez-nous</h3>
+    <div class="bloc grey tiny">
+      <div class="inside-white txt">
+        <p>Une question à propos de cet expert, un renseignement ? N'hésitez-pas à nous contacter.</p>
+        <span data-icon="j" class="icon"></span> <%= link_to "Contactez-nous", contact_path, title: "Contactez-nous", class: "link-simple orange" %>
+      </div>
+    </div>
+    <%= link_to experts_path, class: "btn green", title: "Rechercher un expert" do %>
+      Rechercher un expert <span class="">par secteurs et compétences</span>
+    <% end %>
+    <!-- <br><br>
+    <h3 class="title-medium">Suggestions <strong>d'experts</strong></h3>
+    <div class="bloc grey">
+      <div class="inside-white">
+      </div>
+    </div>
+     <a href="" title="Voir les experts similaires" class="link-simple blue">Voir les experts similaires</a> -->
+  </div>
+  <!-- #left -->
+
+  <div id="right">
+
+    <div class="show-header">
+
+      <div class="show-photo">
+        <%= expert_image_tag(@expert) %>
+      </div>
+      <!-- .show-photo -->
+
+      <div class="show-user">
+
+        <p class="name"><%= @expert.first_name %> <strong><%= @expert.first_letter %></strong>.</p>
+        <p class="title"><%= @expert.profile_title %></p>
+
+        <div class="bottom">
+          <% if @expert.stars.count > 0 %>
+            <p class="stars x<%= @expert.stars.count %>"><%= @expert.stars.count %> étoiles</p>
+          <% end %>
+          <p class="note">Note globale :
+            <% if @expert.notes.count == 0 %>
+              <span>Aucune</span>
+            <% else %>
+              <span><%= @expert.note.round(1) %> / 5</span>
+            <% end %>
+          </p>
+          <p class="reco">Nombre de recommandations :
+            <% if @expert.recommandations.count == 0 %>
+              <span>Aucune</span>
+            <% else %>
+              <span><%= @expert.recommandations.count %></span>
+            <% end %>
+          </p>
+        </div>
+        <!-- .bottom -->
+
+        <% if current_entreprise %>
+
+          <% if current_entreprise.missions.pending.size > 0 %>
+
+            <div style="display:none;">
+              <div id="popin-entreprise-invitation-<%= @expert.id %>">
+                <%= render partial: "popin_entreprise_invitation", locals: {expert: @expert} %>
+              </div>
+            </div>
+            <a href="#popin-entreprise-invitation-<%= @expert.id %>" class="btn green popin-inline" title="Inviter à candidater"><span data-icon="i" class="icon"></span> Inviter à candidater</a>
+
+          <% else %>
+
+            <%= link_to new_mission_path, title: "Inviter à candidater", class: "btn green" do %>
+              <span data-icon="i" class="icon"></span> Inviter à candidater
+            <% end %>
+
+          <% end %>
+
+        <% else %>
+
+          <%= link_to new_entreprise_path, class: "btn green", title: "Inviter à candidater" do %>
+            <span data-icon="i" class="icon"></span> Inviter à candidater
+          <% end %>
+
+        <% end %>
+
+      </div>
+      <!-- .show-user -->
+
+    </div>
+    <!-- .show-head -->
+
+    <div class="show-information">
+
+      <div class="title">
+        <span class="name">Profil de <span><%= @expert.first_name %> <span><%= @expert.first_letter %></span></span>.</span>
+        <span class="note-reco js-toggle" data-target="notation">
+          <a href="#" title="Notes et recommandations">
+            <span data-icon="f" class="icon"></span>
+            Notes et recommandations
+          </a>
+        </span>
+      </div>
+      <!-- .title -->
+
+      <div class="show-information-content">
+
+        <div class="show-note-reco bg-grey dark display-none" id="notation">
+
+            <% if @expert.notes.count == 0 %>
+              <p class="color-dark center">Cet expert n'a pour l'instant aucune note / recommandation.</p>
+            <% else %>
+
+              <ul class="note-reco">
+                <% @expert.notes.each do |note| %>
+                <li>
+                  <div class="testimonial">
+                    <p class="name"><%= note.mission.name %></p>
+                    <% if not note.description.blank? %>
+
+                      <%= simple_format note.description, class: 'txt' %>
+
+                    <% end %>
+                  </div>
+
+                  <p class="note">
+                    <span class="txt">Qualité du travail délivrée </span> <span class="nbr"><%= note.qualite.round(1) %></span>
+                    <span class="txt">Disponibilité </span> <span class="nbr"><%= note.disponibilite.round(1) %></span>
+                    <span class="txt">Ponctualité </span> <span class="nbr"><%= note.ponctualite.round(1) %></span>
+                    <span class="txt">Courtoisie </span> <span class="nbr last"><%= note.courtoisie.round(1) %></span>
+                  </p>
+                  <!-- <%= note.median.round(1) %> -->
+                </li>
+              <% end %>
+              </ul>
+
+            <% end %>
+
+        </div>
+        <!-- .show-note-reco -->
+
+        <div class="description bg-white">
+          <%= simple_format @expert.services %>
+        </div>
+
+        <div class="secteur-domaine bg-grey">
+          <div class="left border-r sameheight">
+            <h3 class="title-cap">Secteurs d'activités</h3>
+            <ul>
+              <% @expert.expert_secteurs.each do |secteur| %>
+                <li><span class="nbr"><%= secteur.exp_years %></span> <span class="exp">Année(s) d'expérience</span> <span class="txt"><%= secteur.secteur.name %></span></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="right sameheight">
+            <h3 class="title-cap">Domaines de compétences</h3>
+            <ul>
+              <% @expert.expert_competences.each do |competence| %>
+                <li><span class="nbr"><%= competence.exp_years %></span> <span class="exp">Année(s) d'expérience</span> <span class="txt"><%= competence.competence.name %></span></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <!-- .secteur-domaine -->
+
+        <div class="experience-pro bg-white">
+          <h3 class="title-cap">Expérience professionnelle</h3>
+          <% @expert.experiences.each do |experience| %>
+          <table>
+            <tr class="entreprise-poste">
+              <td><span class="label"><span class="ico">■</span> Entreprise </span></td>
+              <td><span class="txt"><%= experience.entreprise %></span></td>
+            </tr>
+            <tr class="entreprise-poste">
+              <td><span class="label"><span class="ico">■</span> Poste </span></td>
+              <td><span class="txt"><%= experience.poste %></span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="description-exp"><div><%= simple_format experience.description %></div></td>
+            </tr>
+          </table>
+          <% end %>
+        </div>
+        <!-- .experience-pro -->
+
+        <% if @expert.cursus.size > 0 %>
+        <div class="cursus-academique bg-grey">
+          <h3 class="title-cap">Cursus académique</h3>
+          <table>
+            <% @expert.cursus.each do |cursu| %>
+            <tr class="diplome-ecole">
+              <td><span class="label"><span data-icon="e" class="icon"></span> Diplôme :</span></td>
+              <td><span class="txt"><%= cursu.diplome %></span></td>
+              <td><span class="label">École / Université :</span></td>
+              <td><span class="txt"><%= cursu.university %></span></td>
+              <td><!-- <span class="label">Année :</span> --> <span class="txt no-width"><%= cursu.years %></span></td>
+            </tr>
+            <% end %>
+          </table>
+        </div>
+        <% end %>
+        <!-- .cursus-academique -->
+
+        <% if @expert.responsabilities.size > 0 %>
+        <div class="experience-pro bg-white">
+          <h3 class="title-cap">Autre responsabilité</h3>
+          <% @expert.responsabilities.each do |responsability| %>
+          <table>
+            <tr class="entreprise-poste">
+              <td><span class="ico">■</span> <span class="label">Organisme </span></td>
+              <td><span class="txt"><%= responsability.organisme %></span></td>
+            </tr>
+            <tr class="entreprise-poste">
+              <td><span class="ico">■</span> <span class="label">Poste </span></td>
+              <td><span class="txt"><%= responsability.poste %></span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="description-exp"><div><%= simple_format responsability.description %></div></td>
+            </tr>
+          </table>
+          <% end %>
+        </div>
+        <% end %>
+        <!-- .experience-pro -->
+
+      </div>
+      <!-- .show-information-content -->
+
+    </div>
+    <!-- .show-information -->
+
+  </div>
+  <!-- #right -->
+
+</div>
+<!-- .inside -->

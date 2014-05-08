@@ -1,0 +1,43 @@
+# Encoding:
+#   Enabled: false
+
+AllCops:
+  Includes:
+    - Rakefile
+    - config.ru
+  Excludes:
+    - bin/**
+    - db/**
+    - node_modules/**
+    - script/**
+    - spec/**
+    - config/initializers/**
+    - config/routes.rb
+
+LineLength:
+  Max: 89
+
+StringLiterals:
+  # Valid values (denoting the preferred quote delimiters) are:
+  # single_quotes, double_quotes
+  EnforcedStyle: double_quotes
+  Enabled: false
+
+GlobalVars:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+MethodLength:
+  Enabled: false
+
+AndOr:
+  Enabled: false
+
+Not:
+  Enabled: false
+
+ClassLength:
+  CountComments: false  # count full line comments?
+  Max: 500

@@ -1,0 +1,198 @@
+<% content_for :title do %>Un expert reconnu pour toutes vos missions<% end %>
+
+<% content_for :meta do %>
+<meta name="description" content="Trouvez et sélectionnez un expert reconnu pour toutes vos missions: conseil, management de transition, formation ou coaching !">
+<% end %>
+
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      MainApp.form();
+      MainApp.modif_profile();
+      MainApp.select_disable();
+    });
+  </script>
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Experts", experts_path, title: "Experts"%></li>
+    <li>Liste des experts</li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <div id="left">
+
+    <%
+    if current_user and current_user.entreprise
+      link = new_mission_path
+    else
+      link = new_entreprise_path
+    end %>
+
+    <%= link_to link, class: "btn blue ico-mission", title: "Déposer une mission" do %>
+      Déposer une mission <span>c'est rapide et gratuit</span>
+    <% end %>
+
+    <!-- <a href="" title="Créer une alerte" class="link-simple orange">Créer une alerte</a> -->
+    <br><br>
+    <h3 class="title-medium">Filtrer les <strong>seniors</strong></h3>
+
+    <%= form_tag experts_path, {class: "form filter", method: :get} do %>
+      <div class="bloc grey">
+        <div class="inside-white">
+          <p class="title-bg">Secteur d'activité</p>
+          <% if @selected_elem[0].nil? %>
+            <% @selected_elem[0] = [""] %>
+          <% end %>
+          <% @selected_elem[0].each_with_index do |s, i| %>
+          <div class="duplicate-item" data-group="secteurs<%= i %>">
+            <% klass = (i == 0) ? "display-none" : "" %>
+            <a href="#" title="Effacer" class="delete-item js-del-field <%= klass %>"><span data-icon="h" class="icon"></span></a>
+            <%= select_tag 'secteurs[]', options_from_collection_for_select(@secteurs, "id", "name", s), :class => 'text js-select', :prompt => "Sélectionner"%>
+          </div>
+          <% end %>
+          <div class="link-wrap">
+          <% disp = (@selected_elem[0].length == 3) ? "display: none" : "" %>
+            <a href="#" class="link-add js-add-field" title="+ Ajouter un autre type" style="<%= disp %>">+ Ajouter un autre type</a>
+          </div>
+        </div>
+        <br>
+        <div class="inside-white">
+          <p class="title-bg">Domaine de compétence</p>
+          <% if @selected_elem[1].nil? %>
+            <% @selected_elem[1] = [""] %>
+          <% end %>
+          <% @selected_elem[1].each_with_index do |s, i| %>
+          <div class="duplicate-item" data-group="competences<%= i %>">
+            <% klass = (i == 0) ? "display-none" : "" %>
+            <a href="#" title="Effacer" class="delete-item js-del-field <%= klass %>"><span data-icon="h" class="icon"></span></a>
+            <%= select_tag 'competences[]', options_from_collection_for_select(@competences, "id", "name", s), :class => 'text js-select', :prompt => "Sélectionner"%>
+          </div>
+          <% end %>
+          <div class="link-wrap">
+          <% disp = (@selected_elem[1].length == 3) ? "display: none" : "" %>
+            <a href="#" class="link-add js-add-field" title="+ Ajouter un autre type" style="<%= disp %>">+ Ajouter un autre type</a>
+          </div>
+        </div>
+        <p class="delete">
+          <%= link_to "Effacer la recherche", experts_path, title: "Effacer la recherche"%>
+        </p>
+        <button type="submit" class="btn blue" title="Rechercher">Rechercher <span class="icon">►</span></button>
+      </div>
+    <% end %>
+    <!-- .form -->
+
+  </div>
+  <!-- #left -->
+
+  <div id="right">
+
+    <h2 class="title-top">Liste des <strong>experts seniors</strong> inscrits</h2>
+
+    <div class="bloc grey">
+
+      <% if @experts.size == 0 %>
+        Aucun résultat correspondant à votre recherche.
+      <% end %>
+
+      <ul class="list-items">
+
+        <% @experts.each do |expert| %>
+        <li>
+
+          <% if current_entreprise %>
+          <div class="display-none">
+            <div id="popin-entreprise-invitation-<%= expert.id %>">
+              <%= render partial: "popin_entreprise_invitation", locals: {expert: expert} %>
+            </div>
+          </div>
+          <!-- .popin -->
+          <% end %>
+
+          <div class="show-photo">
+            <%= link_to profile_path(expert), class: "", title: "Voir le profil complet" do %>
+              <%= expert_image_tag(expert) %>
+            <% end %>
+          </div>
+          <!-- .show-photo -->
+
+          <div class="item">
+
+            <p class="name"><%= expert.first_name %> <strong><%= expert.first_letter %></strong>.</p>
+            <p class="title"><%= expert.profile_title %></p>
+
+            <div class="group-secteur-domaine">
+              <% count = 0 %>
+              <% expert.expert_secteurs.each do |secteur| %>
+                <% next if count > 0 %>
+                <p><span class="ico">■</span> <%= secteur.secteur.name %></p>
+                <% count = count + 1 %>
+              <% end %>
+              <% count = 0 %>
+              <% expert.expert_competences.each do |competence| %>
+                <% next if count > 0 %>
+                <p><span class="ico">■</span> <%= competence.competence.name %></p>
+                <% count = count + 1 %>
+              <% end %>
+            </div>
+            <!-- .group-secteur-domaine -->
+
+            <div class="group-button">
+              <% if current_entreprise %>
+
+              <% @_current_entreprise_missions ||= current_entreprise.missions.size %>
+
+                <% if @_current_entreprise_missions > 0 %>
+
+                  <a href="#popin-entreprise-invitation-<%= expert.id %>" class="btn grey popin-inline" title="Inviter à candidater"><span data-icon="i" class="icon"></span> Inviter à candidater</a>
+
+                <% else %>
+
+                  <%= link_to new_mission_path, title: "Inviter à candidater", class: "btn grey" do %>
+                    <span data-icon="i" class="icon"></span> Inviter à candidater
+                  <% end %>
+
+                <% end %>
+
+              <% else %>
+
+                <%= link_to new_entreprise_path, class: "btn grey", title: "Inviter à candidater" do %>
+                    <span data-icon="i" class="icon"></span> Inviter à candidater
+                <% end %>
+
+              <% end %>
+
+              <%= link_to profile_path(expert), class: "btn green", title: "Voir le profil complet" do %>
+                <span data-icon="j" class="icon"></span> Voir le profil complet
+              <% end %>
+            </div>
+            <!-- .group-button -->
+
+            <div class="group-note-reco">
+              <span class="stars x<%= expert.stars.count %>"><%= expert.stars.count %> étoiles</span>
+              <span class="reco"><span data-icon="k" class="icon"></span> <span><%= expert.recommandations.count %></span></span>
+            </div>
+            <!-- .group-note-reco -->
+
+          </div>
+          <!-- .item -->
+
+        </li>
+        <% end %>
+
+      </ul>
+      <!-- .list-items -->
+
+    </div>
+    <!-- .bloc.grey -->
+
+    <%= paginate @experts %>
+
+  </div>
+  <!-- #right -->
+
+</div>
+<!-- .inside -->

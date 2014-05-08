@@ -1,0 +1,12 @@
+<p>Bonjour <strong><%= @entreprise.name %></strong>,</p>
+
+<p>L'expert <strong><%= @expert.first_name %> <%= @expert.first_letter %></strong> a postulé à la mission <strong><%= link_to @mission.name, mission_url(@mission) %></strong>.</p>
+
+<p>Nous vous invitons maintenant à vous rendre sur votre <strong>tableau de bord</strong> pour consulter sa proposition et son profil : <%= link_to "Tableau de bord", entreprise_dashboard_url(@entreprise) %></p>
+
+<p>--------------------</p>
+
+<p>L'équipe de <a href="http://louerunsenior.com">LouerUnSenior.com</a> reste à votre disposition pour répondre à toutes vos questions. <br>
+Tél : 09 70 40 80 72 - Email : contact@louerunsenior.com  <br>
+A très bientôt sur <a href="http://louerunsenior.com">LouerUnSenior.com</a> <br>
+Twitter : @louerunsenior - Linkedin : louerunsenior.com</p>

@@ -1,0 +1,93 @@
+<div class="show-header">
+  <div class="show-photo">
+    <img src="/static/images/categories/mission-cat-0<%= @mission.category_id %>.png" alt="Catégorie" width="140" height="140">
+  </div>
+  <!-- .show-photo -->
+  <div class="show-user">
+    <p class="name mission"><%= @mission.name %></p>
+    <p class="title"><!-- <%= @mission.category.name %> --><%= @mission.secteur.name %> - <%= @mission.competence.name %></p>
+    <div class="bottom">
+      <p>Budget : <span><%= mapping_budget(@mission) %></span></p>
+      <p>Durée : <span><%= mapping_duree(@mission) %></span></p>
+      <p>Lieu : <span><%= @mission.town %></span></p>
+    </div>
+
+    <% unless @preview %>
+
+      <% unless current_user %>
+        <%= link_to new_expert_path, class: "btn green", title: "Postuler à cette mission" do %>
+          <span data-icon="j" class="icon"></span> Postuler à cette mission
+        <% end %>
+      <% else %>
+        <% if current_entreprise %>
+          <%= link_to new_expert_path, class: "btn green", title: "Postuler à cette mission" do %>
+            <span data-icon="j" class="icon"></span> Postuler à cette mission
+          <% end %>
+        <% end %>
+
+        <% if current_expert %>
+          <% if current_expert.approved? and not current_expert.has_candidates_to?(@mission) and not current_expert.has_been_invited_to?(@mission) and not current_expert.has_to_confirm?(@mission) and not @mission.closed %>
+            <%= link_to application_path(@mission), class: "btn green", title: "Postuler à cette mission" do %>
+              <span data-icon="j" class="icon"></span> Postuler à cette mission
+            <% end %>
+
+          <% elsif current_expert.has_candidates_to?(@mission) and not @mission.closed %>
+            <%= link_to "#", class: "btn green", title: "Vous avez postulé à cette mission" do %>
+              <span data-icon="l" class="icon"></span> Vous avez postulé à cette mission
+            <% end %>
+
+          <% elsif current_expert.has_to_confirm?(@mission) and not @mission.closed %>
+            <%= link_to "#", class: "btn green", title: "Vous avez postulé à cette mission" do %>
+              <span data-icon="l" class="icon"></span> Vous avez postulé à cette mission
+            <% end %>
+
+          <% elsif current_expert.has_been_invited_to?(@mission) %>
+            <%= link_to "#", class: "btn green", title: "Vous avez postulé à cette mission" do %>
+              <span data-icon="l" class="icon"></span> Vous avez postulé à cette mission
+            <% end %>
+
+          <% elsif @mission.done %>
+            <%= link_to "#", class: "btn green", title: "Mission terminée" do %>
+              <span data-icon="l" class="icon"></span> Mission terminée
+            <% end %>
+
+          <% elsif @mission.doing %>
+            <%= link_to "#", class: "btn green", title: "Mission en cours" do %>
+              <span data-icon="l" class="icon"></span> Mission en cours
+            <% end %>
+
+          <% else %>
+            <%= link_to "#", class: "btn green", title: "Vous ne pouvez pas encore postuler" do %>
+              <span data-icon="n" class="icon"></span> Vous ne pouvez pas encore postuler
+            <% end %>
+          <% end %>
+
+        <% end %>
+
+      <% end %>
+
+    <% end %>
+
+  </div>
+  <!-- .show-information -->
+</div>
+<!-- .show-head -->
+
+<div class="show-information">
+
+  <div class="title">
+    <span class="name">Description de la mission</span>
+  </div>
+  <!-- .title -->
+
+  <div class="show-information-content">
+
+    <div class="description mission bg-white no-border">
+      <%= sanitize @mission.description %>
+    </div>
+
+  </div>
+  <!-- .show-information-content -->
+
+</div>
+<!-- .show-information -->

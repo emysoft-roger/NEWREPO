@@ -1,0 +1,15 @@
+Contacté par :
+<br>
+<%= @data['name'] %> (<%= @data['email'] %>)
+<br>
+<br>
+
+Sujet :
+<br>
+<%= @data['subject'] %>
+<br>
+<br>
+
+Message :
+<br>
+<%= sanitize @data['content'], tags: %w(br), attributes: %w() %>

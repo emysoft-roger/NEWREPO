@@ -1,0 +1,26 @@
+<div class="inside-popin">
+
+  <p class="head">Vous avez reçu une <strong>invitation à cette mission</strong></p>
+
+  <div class="clearfix">
+
+    <div class="button-group center no-border">
+      <p class="center msg">Veuillez indiquer si cette mission vous intéresse :</p> <br>
+      <%= link_to application_path(id: mission.id, invitation: invitation.id), class: "btn green", title: "Valider et recruter l'expert" do %>
+        <span data-icon="l" class="icon"></span> Oui, je dépose une candidature
+      <% end %>
+
+      <%= form_for invitation, method: :patch, html: {style: "display:inline;"} do %>
+        <button type="submit" class="btn orange" title="Valider et recruter l'expert"><span data-icon="h" class="icon"></span> Non, je refuse l'invitation</button>
+      <% end %>
+    </div>
+
+  </div>
+  <!-- .clearfix -->
+
+  <div class="button-group center">
+    <a href="" class="btn blue popin-dash" onclick='parent.$.colorbox.close(); return false;' title="Fermer cette fenêtre"><span data-icon="h" class="icon"></span> Fermer cette fenêtre</a>
+  </div>
+
+</div>
+<!-- .inside-popin-->

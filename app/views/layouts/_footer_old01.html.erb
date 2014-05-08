@@ -1,0 +1,54 @@
+<div id="footer">
+  <ul class="col inside">
+    <li>
+      <p class="title">A propos</p>
+      <ul class="list">
+        <li><%= link_to "Nous contacter", contact_path, title: "Nous contacter" %></li>
+        <li><%= link_to "Équipe", equipe_path, title: "Équipe" %></li>
+        <li><a href="http://blog.louerunsenior.com" title="Blog">Blog</a></li>
+        <!-- <li><a href="" title="Presse">Presse</a></li> -->
+      </ul>
+    </li>
+    <li>
+      <p class="title">Entreprises</p>
+      <ul class="list">
+        <li><%= link_to "Comment ça marche ?", comment_ca_marche_path, title: "Comment ça marche pour les entreprises ?" %></li>
+        <li><%= link_to "Déposer une mission", new_entreprise_path, title: "Déposer une mission" %></li>
+        <li><%= link_to "Liste des missions", missions_path, title: "Liste des missions" %></li>
+      </ul>
+    </li>
+    <li>
+      <p class="title">Seniors</p>
+      <ul class="list">
+        <li><%= link_to "Comment ça marche ?", comment_ca_marche_expert_path, title: "Comment ça marche pour les experts ?" %></li>
+        <li><%= link_to "Ajouter votre profil", new_expert_path, title: "Ajouter votre profil" %></li>
+        <li><%= link_to "Liste des experts", experts_path, title: "Liste des experts" %></li>
+      </ul>
+    </li>
+    <li class="fixed">
+      <p class="title">LouerUnSenior, c'est quoi ?</p>
+      <p class="txt">LouerUnSenior est un service simple, rapide et efficace de mise en relation entre des entreprises et des experts spécialistes de leur domaine.</p>
+      <%= link_to "En savoir plus", comment_ca_marche_path, title: "En savoir plus", class: "link" %>
+    </li>
+  </ul>
+</div>
+<!-- #footer -->
+
+<div id="footer-bottom">
+  <div class="inside">
+    <p class="logo">LouerUnSenior.com</p>
+    <ul class="social">
+      <li class="ico-fb"><a href="https://www.facebook.com/louerunsenior" title="Facebook">Facebook</a></li>
+      <li class="ico-tw"><a href="https://twitter.com/louerunsenior" title="Twitter">Twitter</a></li>
+      <li class="ico-vi"><a href="http://fr.viadeo.com/fr/company/louerunsenior-com" title="Viadeo">Viadeo</a></li>
+      <li class="ico-ln"><a href="http://www.linkedin.com/company/3354016?trk=tyah&trkInfo=tas%3Alouerunsenior" title="Linkedin">Linkedin</a></li>
+    </ul>
+    <p class="txt">Copyright © 2013 LouerUnSenior </p>
+    <ul class="nav">
+      <li><%= link_to "Mentions légales", mentions_legales_path, title: "Mentions légales" %></li>
+      <li><%= link_to "Contact", contact_path, title: "Contact" %></li>
+      <li><%= link_to "CGU - CGV", cgu_cgv_path, title: "CGU - CGV" %></li>
+    </ul>
+  </div>
+</div>
+<!-- #footer-bottom -->

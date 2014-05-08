@@ -1,0 +1,21 @@
+<div class="inside">
+
+  <div id="main" class="wd-preview">
+
+    <div class="preview-valid">
+      <p>Avant de publier votre mission, veuillez effectuer une relecture.</p>
+      <%= form_for @mission do |f| %>
+        <button type="submit" class="btn green" title="Valider ma mission"><span data-icon="l" class="icon"></span> Valider ma mission</button>
+        <%= link_to new_mission_path(id: @mission.id), class: "btn orange", title: "Revenir à l'édition" do %>
+          <span data-icon="h" class="icon"></span> Revenir à l'édition
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= render partial: "mission" %>
+
+  </div>
+  <!-- #main -->
+
+</div>
+<!-- .inside -->

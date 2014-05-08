@@ -1,0 +1,38 @@
+<div class="inside-popin">
+
+  <p class="head">Ci-dessous la <strong>candidature</strong> et les <strong>informations</strong> de l'expert</p>
+
+  <div class="clearfix">
+
+    <div class="col-left">
+      <h2 class="title">Candidature de <strong><%= application.expert.first_name %> <span><%= application.expert.first_letter %></span>.</strong></h2>
+      <p class="price">Estimation : <span class="color"><%= application.price %></span> <span>€</span></p>
+      <div class="application-content">
+        <%= sanitize  application.motivation %>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <h2 class="title">Informations <strong>personnelles</strong></h2>
+      <p class="info-txt">Pour confirmer définitivement votre prestataire, n’oubliez pas de cliquer sur le bouton « <strong>recruter</strong> ». <br> L'utilisation des informations personnelles de l'expert est soumis aux <%= link_to "CGU - CGV", cgu_cgv_path, title: "CGU - CGV", target: "_blank" %> que vous avez acceptées à l'inscription.</p>
+      <ul class="info">
+        <li><span class="ico">■</span> <span class="user"><%= application.expert.first_name %> <span><%= application.expert.first_letter %></span>.</span></li>
+        <li><span class="ico">■</span> <%= application.expert.user.email %></li>
+        <li><span class="ico">■</span> <%= application.expert.tel %></li>
+      </ul>
+      <%= link_to "Voir son profil en ligne", profile_path(application.expert_id), class: "link-simple orange", title: "Voir son profil en ligne", target: "_blank" %>
+    </div>
+
+  </div>
+  <!-- .clearfix -->
+
+  <p class="msg-action">Pour votre sécurité, LouerUnSenior.com est l'intermédiaire de paiement entre vous et le prestataire. <br> Afin de prévenir tous risques de fraudes, veillez à ne JAMAIS régler directement le prestataire.</p>
+
+  <div class="button-group center">
+    <a href="#popin-expert-recruter-<%= application.expert_id %>" class="btn green popin-inline" title="Recruter l'expert"><span data-icon="j" class="icon"></span> Recruter cet expert</a>
+
+    <a href="" class="btn blue popin-dash" onclick='parent.$.colorbox.close(); return false;' title="Fermer cette fenêtre"><span data-icon="h" class="icon"></span> Fermer cette fenêtre</a>
+  </div>
+
+</div>
+<!-- .inside-popin-->

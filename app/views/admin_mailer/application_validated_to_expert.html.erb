@@ -1,0 +1,21 @@
+<p>Bonjour <strong><%= @expert.first_name %> <%= @expert.last_name %></strong>,</p>
+
+<p>Félicitations !</p>
+
+<p>Votre candidature a été retenue pour la mission <strong><%= link_to @mission.name, mission_url(@mission) %></strong> par l'entreprise <strong><%= @mission.entreprise.name %></strong>.</p>
+
+<p>Que va-t-il se passer maintenant ?</p>
+
+<p>
+  1) Vous confirmez votre participation à la mission et vous entrez vos informations de règlement dans votre tableau de bord : <%= link_to "Tableau de bord", dashboard_url(@expert) %> <br>
+  2) Vous envoyez votre contrat de prestation directement à votre client et vous débutez la mission. <br>
+  3) Votre client verse les fonds dus pour la mission sur le compte de séquestre LouerUnSenior.com. <br>
+  4) LouerUnSenior.com vous reverse les fonds dès validation du client.
+</p>
+
+<p>--------------------</p>
+
+<p>L'équipe de <a href="http://louerunsenior.com">LouerUnSenior.com</a> reste à votre disposition pour répondre à toutes vos questions. <br>
+Tél : 09 70 40 80 72 - Email : contact@louerunsenior.com  <br>
+A très bientôt sur <a href="http://louerunsenior.com">LouerUnSenior.com</a> <br>
+Twitter : @louerunsenior - Linkedin : louerunsenior.com</p>

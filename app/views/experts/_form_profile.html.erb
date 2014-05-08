@@ -1,0 +1,285 @@
+<%= content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      MainApp.form();
+      MainApp.modif_profile();
+      MainApp.complete_optional_fields();
+      MainApp.select_disable();
+      MainApp.upcfirst();
+      MainApp.counter();
+    });
+  </script>
+<% end %>
+
+<div class="inside">
+
+<%= yield :headlines if content_for?(:headlines) %>
+
+  <%= form_for(@expert, {url: create_profile_path, html: {class: "form"}, method: :post}) do |f| %>
+
+    <%= f.hidden_field :id %>
+
+      <div class="bloc grey">
+
+        <fieldset>
+
+          <legend><span class="nbr">1</span> Votre <strong>description</strong> <span class="mandatory">*</span></legend>
+
+          <div class="col x1">
+            <label for="expert_profile_title" class="text">Titre de votre profil</label>
+            <span class="row x-large">
+              <%= f.text_field :profile_title, placeholder: "Courte phrase décrivant brièvement votre profil. C'est le premier élément visible par l'entreprise. (115 caractères)", :class => 'input-count-115 text validate[required,minSize[2],maxSize[115]]' %>
+            </span>
+          </div>
+          <!-- .col -->
+
+          <div class="col x1">
+            <label for="expert_services" class="text">Votre offre de conseil</label>
+            <span class="row x-large">
+              <%= f.text_area :services, placeholder: "Résumé rapide et concis des services que vous proposez aux entreprises. (1500 caractères)", :class => 'input-count-1500 text large validate[required,minSize[2],maxSize[1500]]'%>
+            </span>
+          </div>
+          <!-- .col -->
+
+        </fieldset>
+        <!-- .fieldset -->
+
+        <hr>
+
+        <fieldset>
+
+          <legend><span class="nbr">2</span> Votre <strong>expertise</strong> <span class="mandatory">*</span></legend>
+
+          <p class="info-txt">Vous pouvez indiquer jusqu'à 3 secteurs d'activités et 3 domaines de compétences. Veuillez les classer par ordre d'importance.</p>
+
+          <div class="col x4">
+
+            <div class="wrap-col border sameheight">
+
+              <span class="row x-medium js-group">
+                <label for="secteur" class="text">Secteur d'activité</label>
+                <% @expert.expert_secteurs.each_with_index do |s, i| %>
+                <span class="duplicate-item" data-group="experts-<%= i %>">
+                  <% klass = (i == 0) ? "display-none" : "" %>
+                  <a href="#" title="Effacer" class="delete-item js-del-field <%= klass %>"><span data-icon="t" class="icon"></span></a>
+                  <%= select_tag "expert_secteur[secteur_id][]", options_from_collection_for_select(@secteurs, "id", "name", s.secteur_id), {:class => 'text validate[required] js-select', :id => "secteur", :prompt => "Sélectionner"} %>
+                </span>
+                <% end %>
+              </span>
+
+              <span class="row x-tiny js-group">
+                <label for="secteur-exp" class="text italic">Années d'expérience</label>
+                <% @expert.expert_secteurs.each_with_index do |s, i| %>
+                <span class="duplicate-item" data-group="experts-<%= i %>">
+                  <%= select_tag "expert_secteur[exp_years][]", options_for_select((1..50).to_a, s.exp_years), :class => "text", :id => "secteur-exp"%>
+                </span>
+                <% end %>
+              </span>
+
+              <% klass = (@expert.expert_secteurs.size >= 3) ? "display:none;" : "" %>
+              <div class="link-wrap">
+                <a style="<%= klass %>" href="#" class="js-add-field" data-field="expertise" title="+ Ajouter un autre secteur">+ Ajouter un autre secteur</a>
+              </div>
+
+            </div>
+            <!-- .wrap-col -->
+
+            <div class="wrap-col sameheight">
+
+              <span class="row x-medium js-group">
+                <label for="competence" class="text">Domaine de compétence</label>
+                <% @expert.expert_competences.each_with_index do |c, i| %>
+                <span class="duplicate-item" data-group="competences-<%= i %>">
+                  <% klass = (i == 0) ? "display-none" : "" %>
+                  <a href="#" title="Effacer" class="delete-item js-del-field <%= klass %>"><span data-icon="t" class="icon"></span></a>
+                  <%= select_tag "expert_competence[competence_id][]", options_from_collection_for_select(@competences, "id", "name", c.competence_id), {:class => 'text validate[required] js-select', :id => "competence", :prompt => "Sélectionner"} %>
+                </span>
+                <% end %>
+              </span>
+
+              <span class="row x-tiny js-group">
+                <label for="domaine-exp" class="text italic">Années d'expérience</label>
+                <% @expert.expert_competences.each_with_index do |c, i| %>
+                <span class="duplicate-item" data-group="competences-<%= i %>">
+                  <%= select_tag "expert_competence[exp_years][]", options_for_select((1..50).to_a, c.exp_years), :class => "text", :id => "domaine-exp"%>
+                </span>
+                <% end %>
+              </span>
+
+              <% klass = (@expert.expert_competences.size >= 3) ? "display:none;" : "" %>
+              <div class="link-wrap">
+                <a style="<%= klass %>" href="#" class="js-add-field" data-field="competences" title="+ Ajouter un autre domaine">+ Ajouter un autre domaine</a>
+              </div>
+
+            </div>
+            <!-- .wrap-col -->
+
+          </div>
+          <!-- .col -->
+
+        </fieldset>
+        <!-- .fieldset -->
+
+        <hr>
+
+        <fieldset>
+
+          <legend><span class="nbr">3</span> Votre <strong>expérience professionnelle</strong> <span class="mandatory">*</span></legend>
+
+          <p class="info-txt">Veuillez indiquer les trois expériences professionnelles les plus pertinentes pour votre profil.</p>
+
+          <div class="col x2">
+
+            <div class="js-group">
+
+              <% @expert.experiences.each_with_index do |e, i| %>
+              <div class="duplicate-item" data-group="experience-<%= i %>">
+
+                <% klass = (i == 0) ? "display-none" : "" %>
+                <a href="#" title="Effacer" class="delete-item js-del-field <%= klass %>"><span data-icon="t" class="icon"></span></a>
+
+                <span class="row x-medium">
+                  <label for="entreprise" class="text hide">Entreprise</label>
+                  <%= text_field_tag  "experience[entreprise][]", e.entreprise, :placeholder => "Entreprise (110 caractères)", :class => 'text validate[required,minSize[2],maxSize[110]]', :id => "entreprise" %>
+                  <%#= text_field_tag  "experience[#{i}][entreprise]", e.entreprise, :placeholder => "Entreprise", :class => 'text validate[required,minSize[2],maxSize[25]]', :id => "entreprise" %>
+                </span>
+                <span class="row x-medium">
+                  <label for="poste" class="text hide">Poste occupé</label>
+                  <%= text_field_tag  "experience[poste][]", e.poste, :placeholder => "Poste occupé (60 caractères)", :class => 'text validate[required,minSize[2],maxSize[110]]', :id => "poste" %>
+                  <%#= text_field_tag  "experience[#{i}][poste]", e.poste, :placeholder => "Poste occupé", :class => 'text validate[required,minSize[2],maxSize[25]]', :id => "poste" %>
+                </span>
+                <span class="row x-large-all">
+                  <label for="description-exp" class="text hide">Description de l'expérience</label>
+                  <%= text_area_tag "experience[description][]", e.description, :placeholder => "Description de l'expérience, secteur d'activité de l'entreprise, taille de l'entreprise, pays d'implantation, etc. (700 caractères)", :class => 'input-count-700 text validate[required,minSize[2],maxSize[700]]', :id => "description-exp" %>
+                  <%#= text_area_tag "experience[#{i}][description]", e.description, :placeholder => "Description de l'expérience, secteur d'activité de l'entreprise, taille de l'entreprise, pays d'implantation, etc. (300 caractères)", :class => 'text validate[required,minSize[2],maxSize[300]]', :id => "description-exp" %>
+                </span>
+
+              </div>
+              <% end %>
+
+            </div>
+            <!-- .js-group -->
+            <% klass = (@expert.experiences.size >= 3) ? "display:none;" : "" %>
+
+            <div class="link-wrap">
+              <a style="<%= klass %>" href="#" class="js-add-field" data-field="experience" title="+ Ajouter une autre expérience">+ Ajouter une autre expérience</a>
+            </div>
+
+          </div>
+          <!-- .col -->
+
+        </fieldset>
+        <!-- .fieldset -->
+
+        <hr>
+
+        <fieldset>
+
+          <legend><span class="nbr">4</span> Votre <strong>cursus académique</strong></legend>
+
+          <div class="col x2">
+
+            <div class="js-group">
+
+              <% @expert.cursus.each_with_index do |c, i| %>
+              <div class="duplicate-item" data-group="cusus-<%= i %>">
+
+                <% klass = (i == 0) ? "display-none" : "" %>
+                <a href="#" title="Effacer" class="delete-item js-del-field <%= klass %>"><span data-icon="t" class="icon"></span></a>
+
+                <span class="row x-medium">
+                  <label for="cursu_diplome_" class="text hide">Diplôme</label>
+                  <%= text_field_tag "cursu[diplome][]", c.diplome, :placeholder => "Diplôme (70 caractères)", :class => 'text validate[minSize[2],maxSize[70]] js-optional' %>
+                </span>
+                <span class="row x-medium">
+                  <label for="cursu_university_" class="text hide">École / Université</label>
+                  <%= text_field_tag "cursu[university][]", c.university, :placeholder => "École / Université (70 caractères)", :class => 'text validate[minSize[2],maxSize[70]] js-optional' %>
+                </span>
+                <span class="row x-tiny">
+                  <label for="cursu_years_" class="text hide">Année</label>
+                  <%= text_field_tag "cursu[years][]", c.years, :placeholder => "Année", :class => 'text validate[minSize[4],maxSize[4],custom[integer]] js-optional' %>
+                </span>
+
+              </div>
+              <% end %>
+
+            </div>
+            <!-- .js-group -->
+
+            <% klass = (@expert.cursus.size >= 3) ? "display:none;" : "" %>
+            <div class="link-wrap">
+              <a style="<%= klass %>" href="#" class="js-add-field" title="+ Ajouter un autre diplôme">+ Ajouter un autre diplôme</a>
+            </div>
+
+          </div>
+          <!-- .col -->
+
+        </fieldset>
+        <!-- .fieldset -->
+
+        <hr>
+
+        <fieldset>
+
+          <legend><span class="nbr">5</span> Autres <strong>expériences - projets réalisés</strong> <span>(association, organisation internationale, etc.)</span></legend>
+
+          <div class="col x2">
+
+            <div class="js-group">
+
+              <% @expert.responsabilities.each_with_index do |r, i| %>
+              <div class="duplicate-item" data-group="responsability-<%= i %>">
+
+                <% klass = (i == 0) ? "display-none" : "" %>
+                <a href="#" title="Effacer" class="delete-item js-del-field <%= klass %>"><span data-icon="t" class="icon"></span></a>
+
+                <span class="row x-medium">
+                  <label for="responsability_organisme_" class="text hide">Organisme</label>
+                  <%= text_field_tag "responsability[organisme][]", r.organisme, :placeholder => "Organisme (60 caractères)", :class => 'text validate[minSize[2],maxSize[60]] js-optional' %>
+                </span>
+                <span class="row x-medium">
+                  <label for="poste" class="text hide">Poste occup</label>
+                  <%= text_field_tag "responsability[poste][]", r.poste, :placeholder => "Poste occupé (60 caractères)", :class => 'text validate[minSize[2],maxSize[60]] js-optional' %>
+                </span>
+                <span class="row x-large-all">
+                  <label for="responsability_description_" class="text hide">Description de l'expérience</label>
+                  <%= text_area_tag "responsability[description][]", r.description, :placeholder => "Description de l'expérience, secteur d'activité de l'organisme, taille de l'organisme, pays d'implantation, etc. (700 caractères)", :class => 'input-count-700 text validate[minSize[2],maxSize[700]] js-optional'%>
+                </span>
+
+              </div>
+              <% end %>
+
+            </div>
+            <!-- .js-group -->
+
+            <% klass = (@expert.responsabilities.size >= 3) ? "display:none;" : "" %>
+            <div class="link-wrap">
+              <a style="<%= klass %>" href="#" class="js-add-field" title="+ Ajouter une autre responsabilité">+ Ajouter une autre responsabilité</a>
+            </div>
+
+          </div>
+          <!-- .col -->
+
+        </fieldset>
+        <!-- .fieldset -->
+
+      </div>
+      <!-- .bloc.grey -->
+
+      <div class="col x2 no-margin mb3">
+        <span class="row x-large">
+          <label for="cgu" class="check-box"> J'accepte et je valide le <%= link_to "contrat d'apporteur d'affaires", apporteuraffaires_path, title: "apporteuraffaires", target: "_blank" %><input class="validate[required] check-box" id="cgu" name="cgu" type="checkbox">.</label>
+        </span>
+      </div>
+      <!-- .col -->
+
+      <button type="submit" class="btn green" title="Valider mon profil">Valider mon profil</button>
+      <% if current_expert %>
+        <%= link_to "Annuler", dashboard_path(current_expert.id), class: "btn simple", title: "Annuler" %>
+      <% end %>
+
+  <% end %>
+  <!-- .form -->
+
+</div>
+<!-- .inside -->

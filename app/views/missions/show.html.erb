@@ -1,0 +1,57 @@
+<% content_for :title do %><%= @mission.name %><% end %>
+
+<% content_for :meta do %>
+
+<% end %>
+
+<div class="inside">
+
+  <ul id="breadcrumb">
+    <li><a href="/" title="Accueil">Accueil</a></li>
+    <li><%= link_to "Missions", missions_path, title: "Missions"%></li>
+    <li><%= @mission.name %></li>
+  </ul>
+  <!-- #breadcrumb -->
+
+  <div id="left">
+    <%
+    if current_entreprise
+      link = new_mission_path
+    else
+      link = new_entreprise_path
+    end %>
+
+    <%= link_to link, class: "btn blue ico-mission", title: "Déposer une mission" do %>
+      Déposer une mission <span>c'est rapide et gratuit</span>
+    <% end %>
+    <!-- <a href="" title="Créer une alerte" class="link-simple orange">Créer une alerte</a> -->
+    <br><br>
+    <h3 class="title-medium">Contactez-nous</h3>
+    <div class="bloc grey tiny">
+      <div class="inside-white txt">
+        <p>Une question à propos de cette mission, un renseignement ? N'hésitez-pas à nous contacter.</p>
+        <span data-icon="j" class="icon"></span> <%= link_to "Contactez-nous", contact_path, title: "Contactez-nous", class: "link-simple orange" %>
+      </div>
+    </div>
+    <%= link_to missions_path, class: "btn green", title: "Rechercher une mission" do %>
+      Rechercher une mission <span>par secteurs et compétences</span>
+    <% end %>
+    <!-- <br><br>
+    <h3 class="title-medium">Suggestions de <strong>missions</strong></h3>
+    <div class="bloc grey">
+      <div class="inside-white">
+      </div>
+    </div>
+     <a href="" title="Voir les experts similaires" class="link-simple blue">Voir les experts similaires</a> -->
+  </div>
+  <!-- #left -->
+
+  <div id="right">
+
+    <%= render partial: "mission" %>
+
+  </div>
+  <!-- #right -->
+
+</div>
+<!-- .inside -->

@@ -1,0 +1,40 @@
+<div class="inside-popin">
+<%= form_tag confirm_application_path(application), method: :patch, class: "form center" do %>
+
+  <p class="head">Veuillez <strong>confirmer</strong> votre choix de prestataire</p>
+
+  <div class="clearfix">
+
+    <p class="center">En cliquant sur « <strong>Valider et recruter l’expert</strong> » vous confirmez définitivement « <strong><%= application.expert.first_name %> <%= application.expert.last_name %></strong> » comme prestataire sur la mission « <strong><%= application.mission.name %></strong> ». Un email sera envoyé à l'expert pour qu'il confirme sa participation.</p>
+
+    <p class="msg-action">Pour votre sécurité, LouerUnSenior.com est l'intermédiaire de paiement entre vous et le prestataire. <br> Afin de prévenir tous risques de fraudes, veillez à ne JAMAIS régler directement le prestataire.</p>
+
+    <br>
+
+    <div class="bloc grey m-reset">
+
+      <p class="center color-dark">Le montant de l'estimation intial de l'expert était de : <strong><span class="color-orange"><%= application.price %> €</span></strong>. <br> Si vous avez conclu d'un montant différent, veuillez l'indiquer ci-dessous.</p>
+
+      <fieldset>
+
+          <div class="row center">
+            <label for="" class="text">Montant de la prestation</label>
+            <input type="text" name="entreprise_price" class="text validate[custom[integer]]">
+          </div>
+
+      </fieldset>
+
+    </div>
+    <!-- .bloc.grey -->
+
+  </div>
+  <!-- .clearfix -->
+
+  <div class="button-group center">
+    <button type="submit" class="btn green" title="Valider et recruter l'expert"><span data-icon="l" class="icon"></span> Valider et recruter l'expert</button>
+    <a href="" class="btn blue popin-dash" onclick='parent.$.colorbox.close(); return false;' title="Fermer cette fenêtre"><span data-icon="h" class="icon"></span> Fermer cette fenêtre</a>
+  </div>
+
+<% end %>
+</div>
+<!-- .inside-popin-->
